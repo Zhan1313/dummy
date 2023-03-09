@@ -36,7 +36,7 @@ const dealCards = (cardsPack, quantityOfCards) => {
         let reducedPack = cardsPack.filter(card => card !== cardsPack[randomCard1]);
         let randomCard2 = Math.floor(Math.random() * (cardsQuantity - 1));
         player2.push(reducedPack[randomCard2]);
-        let moreReducedPack = reducedPack.filter(card => card !== cardsPack[randomCard2]);
+        let moreReducedPack = reducedPack.filter(card => card !== reducedPack[randomCard2]);
         return startDealing(moreReducedPack, cardsQuantity - 2);
     }
     let finalReducedPack = startDealing(cardsPack, quantityOfCards);
@@ -47,3 +47,5 @@ const dealCards = (cardsPack, quantityOfCards) => {
 
 let cards = [{level: 10, suit: 'spades'}, {level: 8, suit: 'clubs'}, {level: 9, suit: 'spades'},
     {level: 7, suit: 'hearts'}, {level: 'J', suit: 'spades'}, {level: 'J', suit: 'clubs'}, {level: '8', suit: 'hearts'}]
+
+let cards2 = ['10Spades', '8Clubs', '9Spades', '7Hearts', 'JSpades', 'JClubs', '8Hearts']
