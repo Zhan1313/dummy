@@ -28,7 +28,7 @@ const dealCards = (cardsPack, quantityOfCards) => {
     let player1 = [];
     let player2 = [];
     let startDealing = (cardsPack, cardsQuantity) => {
-        if (player1.length >= 2 && player2.length >= 2) {
+        if (player1.length >= 6 && player2.length >= 6) {
             return cardsPack;
         }
         let randomCard1 = Math.floor(Math.random() * cardsQuantity);
@@ -44,8 +44,45 @@ const dealCards = (cardsPack, quantityOfCards) => {
     console.log(player2);
     console.log(finalReducedPack);
 }
+dealCards(cardsPack, 36);
 
-let cards = [{level: 10, suit: 'spades'}, {level: 8, suit: 'clubs'}, {level: 9, suit: 'spades'},
-    {level: 7, suit: 'hearts'}, {level: 'J', suit: 'spades'}, {level: 'J', suit: 'clubs'}, {level: '8', suit: 'hearts'}]
+class Card {
+    constructor(level, suit) {
+        this.level = level;
+        this.suit = suit;
+    }
+}
 
-let cards2 = ['10Spades', '8Clubs', '9Spades', '7Hearts', 'JSpades', 'JClubs', '8Hearts']
+const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
+const levels = [6, 7 , 8, 9, 10, 'J', 'Q', 'K', 'A'];
+
+const generateCardPack = (levels, suits) => {
+    let cardPack = [];
+    let makePack = (levels, suits, cardsQuantity) => {
+        if (levels.length === 0) {
+            return;
+        }
+        let random = Math.floor(Math.random() * cardsQuantity);
+        cardPack.push(new Card(levels[random], suits[0]));
+        cardPack.push(new Card(levels[random], suits[1]));
+        cardPack.push(new Card(levels[random], suits[2]));
+        cardPack.push(new Card(levels[random], suits[3]));
+        let reducedLevels = levels.filter(level => level !== levels[random]);
+        makePack(reducedLevels, suits, cardsQuantity - 1);
+    }
+    makePack(levels, suits, 8);
+
+    return cardPack;
+}
+const cardsPack = generateCardPack(levels, suits);
+
+/*
+const generateCardPack = (levels, suits) => {
+    let cardPack = [];
+    for (let i = 0; i < suits.length; i++) {
+        for (let j = 0; j < levels.length; j++) {
+            cardPack.push(new Card(levels[j], suits[i]));
+        }
+    }
+    return cardPack;
+}*/
