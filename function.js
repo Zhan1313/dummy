@@ -101,7 +101,7 @@ const shuffleDeck = (deck) => {
     return deck;
 }
 
-const generateCardPack = (levels, suits) => {
+/*const generateCardPack = (levels, suits) => {
     let cardPack = [];
     for (let i = 0; i < suits.length; i++) {
         for (let j = 0; j < levels.length; j++) {
@@ -109,9 +109,9 @@ const generateCardPack = (levels, suits) => {
         }
     }
     return cardPack;
-}
+}*/
 
-/*const generateCardPack = (levels, suits) => {
+const generateCardPack = (levels, suits) => {
     let cardPack = [];
     let makePack = (levels, suits, cardsQuantity) => {
         if (levels.length === 0) {
@@ -128,7 +128,7 @@ const generateCardPack = (levels, suits) => {
     makePack(levels, suits, 8);
 
     return cardPack;
-}*/
+}
 
 /*dummyPlay('J', 'Spades', 'K', 'Spades', 'Clubs'); // true
 dummyPlay('J', 'Spades', 'K', 'Spades', 'Spades'); // true
