@@ -26,7 +26,7 @@ class Card {
 const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
 const levels = [6, 7 , 8, 9, 10, 'J', 'Q', 'K', 'A'];
 
-/*class CardsDeck {
+class CardsDeck {
     generateCardsDeck = (levels, suits) => {
         let cardDeck = [];
         for (let i = 0; i < suits.length; i++) {
@@ -66,11 +66,11 @@ const levels = [6, 7 , 8, 9, 10, 'J', 'Q', 'K', 'A'];
 }
 const deck = new CardsDeck();
 const deck1 = deck.generateCardsDeck(levels, suits);
-const shuffledDeck = deck.shuffleDeck(deck1);*/
+const shuffledDeck = deck.shuffleDeck(deck1);
 
 
 
-
+/*
 const dealCards = (cardsPack, quantityOfCards) => {
     let player1 = [];
     let player2 = [];
@@ -99,7 +99,7 @@ const shuffleDeck = (deck) => {
         deck[i] = temp;
     }
     return deck;
-}
+}*/
 
 /*const generateCardPack = (levels, suits) => {
     let cardPack = [];
@@ -111,7 +111,7 @@ const shuffleDeck = (deck) => {
     return cardPack;
 }*/
 
-const generateCardPack = (levels, suits) => {
+/*const generateCardPack = (levels, suits) => {
     let cardPack = [];
     let makePack = (levels, suits, cardsQuantity) => {
         if (levels.length === 0) {
@@ -128,7 +128,7 @@ const generateCardPack = (levels, suits) => {
     makePack(levels, suits, 8);
 
     return cardPack;
-}
+}*/
 
 /*dummyPlay('J', 'Spades', 'K', 'Spades', 'Clubs'); // true
 dummyPlay('J', 'Spades', 'K', 'Spades', 'Spades'); // true
