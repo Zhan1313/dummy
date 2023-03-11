@@ -1,6 +1,5 @@
 const dummyPlay = (Card1_Level, Card1_Suit, Card2_Level, Card2_Suit, SuperSuit) => {
     let levels = [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
-
     for (let i = 0; i < levels.length; i++) {
         if (Card1_Level === levels[i]) {
             for(let j = 0; j < levels.length; j++) {
@@ -16,13 +15,61 @@ const dummyPlay = (Card1_Level, Card1_Suit, Card2_Level, Card2_Suit, SuperSuit) 
         }
     }
 }
-dummyPlay('J', 'Spades', 'K', 'Spades', 'Clubs'); // true
-dummyPlay('J', 'Spades', 'K', 'Spades', 'Spades'); // true
-dummyPlay('J', 'Spades', 'K', 'Hearts', 'Clubs'); // false
-dummyPlay('J', 'Spades', 10, 'Clubs', 'Clubs'); // true
-dummyPlay('J', 'Clubs', 10, 'Clubs', 'Clubs'); // false
-dummyPlay('J', 'Spades', 10, 'Hearts', 'Clubs'); // false
-dummyPlay('J', 'Diamonds', 'J', 'Hearts', 'Hearts'); // true
+
+class Card {
+    constructor(level, suit) {
+        this.level = level;
+        this.suit = suit;
+    }
+}
+
+const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
+const levels = [6, 7 , 8, 9, 10, 'J', 'Q', 'K', 'A'];
+
+/*class CardsDeck {
+    generateCardsDeck = (levels, suits) => {
+        let cardDeck = [];
+        for (let i = 0; i < suits.length; i++) {
+            for (let j = 0; j < levels.length; j++) {
+                cardDeck.push(new Card(levels[j], suits[i]));
+            }
+        }
+        return cardDeck;
+    }
+    shuffleDeck = (deck) => {
+        for (let i = 0; i < deck.length; i++) {
+            let r = Math.floor(Math.random() * 36);
+            let temp = deck[r];
+            deck[r] = deck[i];
+            deck[i] = temp;
+        }
+        return deck;
+    }
+    dealCards = (cardsPack, quantityOfCards) => {
+        let player1 = [];
+        let player2 = [];
+        let startDealing = (cardsPack, cardsQuantity) => {
+            if (player1.length >= 6 && player2.length >= 6) {
+                return cardsPack;
+            }
+            let randomCard1 = Math.floor(Math.random() * cardsQuantity);
+            player1.push(cardsPack[randomCard1]);
+            let reducedPack = cardsPack.filter(card => card !== cardsPack[randomCard1]);
+            let randomCard2 = Math.floor(Math.random() * (cardsQuantity - 1));
+            player2.push(reducedPack[randomCard2]);
+            let moreReducedPack = reducedPack.filter(card => card !== reducedPack[randomCard2]);
+            return startDealing(moreReducedPack, cardsQuantity - 2);
+        }
+        let finalReducedPack = startDealing(cardsPack, quantityOfCards);
+        return player1;
+    }
+}
+const deck = new CardsDeck();
+const deck1 = deck.generateCardsDeck(levels, suits);
+const shuffledDeck = deck.shuffleDeck(deck1);*/
+
+
+
 
 const dealCards = (cardsPack, quantityOfCards) => {
     let player1 = [];
@@ -40,23 +87,31 @@ const dealCards = (cardsPack, quantityOfCards) => {
         return startDealing(moreReducedPack, cardsQuantity - 2);
     }
     let finalReducedPack = startDealing(cardsPack, quantityOfCards);
-    console.log(player1);
-    console.log(player2);
-    console.log(finalReducedPack);
+    return player1;
 }
-dealCards(cardsPack, 36);
+dealCards(deck, 36);
 
-class Card {
-    constructor(level, suit) {
-        this.level = level;
-        this.suit = suit;
+const shuffleDeck = (deck) => {
+    for (let i = 0; i < deck.length; i++) {
+        let r = Math.floor(Math.random() * 36);
+        let temp = deck[r];
+        deck[r] = deck[i];
+        deck[i] = temp;
     }
+    return deck;
 }
-
-const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
-const levels = [6, 7 , 8, 9, 10, 'J', 'Q', 'K', 'A'];
 
 const generateCardPack = (levels, suits) => {
+    let cardPack = [];
+    for (let i = 0; i < suits.length; i++) {
+        for (let j = 0; j < levels.length; j++) {
+            cardPack.push(new Card(levels[j], suits[i]));
+        }
+    }
+    return cardPack;
+}
+
+/*const generateCardPack = (levels, suits) => {
     let cardPack = [];
     let makePack = (levels, suits, cardsQuantity) => {
         if (levels.length === 0) {
@@ -73,16 +128,12 @@ const generateCardPack = (levels, suits) => {
     makePack(levels, suits, 8);
 
     return cardPack;
-}
-const cardsPack = generateCardPack(levels, suits);
-
-/*
-const generateCardPack = (levels, suits) => {
-    let cardPack = [];
-    for (let i = 0; i < suits.length; i++) {
-        for (let j = 0; j < levels.length; j++) {
-            cardPack.push(new Card(levels[j], suits[i]));
-        }
-    }
-    return cardPack;
 }*/
+
+/*dummyPlay('J', 'Spades', 'K', 'Spades', 'Clubs'); // true
+dummyPlay('J', 'Spades', 'K', 'Spades', 'Spades'); // true
+dummyPlay('J', 'Spades', 'K', 'Hearts', 'Clubs'); // false
+dummyPlay('J', 'Spades', 10, 'Clubs', 'Clubs'); // true
+dummyPlay('J', 'Clubs', 10, 'Clubs', 'Clubs'); // false
+dummyPlay('J', 'Spades', 10, 'Hearts', 'Clubs'); // false
+dummyPlay('J', 'Diamonds', 'J', 'Hearts', 'Hearts'); // true*/
