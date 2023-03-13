@@ -45,29 +45,50 @@ class CardsDeck {
         }
         return deck;
     }
-    dealCards = (cardsPack, quantityOfCards) => {
-        let player1 = [];
-        let player2 = [];
-        let startDealing = (cardsPack, cardsQuantity) => {
-            if (player1.length >= 6 && player2.length >= 6) {
-                return cardsPack;
-            }
-            let randomCard1 = Math.floor(Math.random() * cardsQuantity);
-            player1.push(cardsPack[randomCard1]);
-            let reducedPack = cardsPack.filter(card => card !== cardsPack[randomCard1]);
-            let randomCard2 = Math.floor(Math.random() * (cardsQuantity - 1));
-            player2.push(reducedPack[randomCard2]);
-            let moreReducedPack = reducedPack.filter(card => card !== reducedPack[randomCard2]);
-            return startDealing(moreReducedPack, cardsQuantity - 2);
-        }
-        let finalReducedPack = startDealing(cardsPack, quantityOfCards);
-        return player1;
+    takeOneCard = (someDeck) => {
+        someDeck.pop()
+        return someDeck;
+    }
+    putOneCard = (deck) => {
+        let pl1 = [];
+        pl1.push(deck[deck.length - 1]);
+        return pl1
     }
 }
 const deck = new CardsDeck();
 const deck1 = deck.generateCardsDeck(levels, suits);
 const shuffledDeck = deck.shuffleDeck(deck1);
 
+let reducedDeck = deck.takeOneCard(shuffledDeck);
+let player1Deck = deck.putOneCard(shuffledDeck);
+
+
+
+dealingCards = (cardsPack) => {
+    let player1 = [];
+    let player2 = [];
+    for (let i = 0; player1.length < 6; i + 2) {
+        player1.push(cardsPack[i]);
+        player2.push(cardsPack[i + 1]);
+    }
+    return [player1, player2]
+}
+
+/*const shuffleDeck = (deck) => {
+    let shuffledDeck = [];
+    let startShuffling = (deck, cardsQuantity) => {
+        if (deck.length < 1) {
+            return deck;
+        }
+        let r = Math.floor(Math.random() * cardsQuantity);
+        shuffledDeck.push(deck[r]);
+        deck.filter(card => card !== deck[r])
+        startShuffling(deck, cardsQuantity - 1)
+    }
+    startShuffling(deck, 36)
+    return shuffledDeck;
+}
+shuffleDeck(deck1)*/
 
 
 /*
