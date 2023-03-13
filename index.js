@@ -16,3 +16,4 @@ player2Elem.insertAdjacentHTML('beforeend', '<img src="./assets/7H.png" alt="7H"
 player2Elem.insertAdjacentHTML('beforeend', '<img src="./assets/8H.png" alt="8H"/>');
 player2Elem.insertAdjacentHTML('beforeend', '<img src="./assets/8D.png" alt="8D"/>');
 player2Elem.insertAdjacentHTML('beforeend', '<img src="QD.jpg" alt="KH"/>');
+
