@@ -62,22 +62,19 @@ const dealCards = (someDeck, player1Deck, player2Deck) => {
 
 const shuffleDeck = (deck) => {
     let shuffledDeck = [];
-    let startShuffling = (deck, cardsQuantity) => {
-        if (deck.length < 1) {
-            return deck;
+    let startShuffling = (decks, cardsQuantity) => {
+        if (decks.length < 1) {
+            return;
         }
         let r = Math.floor(Math.random() * cardsQuantity);
-        shuffledDeck.push(deck[r]);
-        console.log(shuffledDeck);
-        console.log('====');
-        deck.filter(card => card !== deck[r])
-        startShuffling(deck, cardsQuantity - 1)
+        shuffledDeck.push(decks[r]);
+        let reducedDeck = decks.filter(card => card !== decks[r])
+        startShuffling(reducedDeck, cardsQuantity - 1)
     }
     startShuffling(deck, 36)
     return shuffledDeck;
 }
-/*
-shuffleDeck(deck1)*/
+let resultDeck = shuffleDeck(deck1)
 
 
 /*

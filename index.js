@@ -19,13 +19,18 @@ class CardsDeck {
         return cardDeck;
     }
     shuffleDeck = (deck) => {
-        for (let i = 0; i < deck.length; i++) {
-            let r = Math.floor(Math.random() * 36);
-            let temp = deck[r];
-            deck[r] = deck[i];
-            deck[i] = temp;
+        let shuffledDeck = [];
+        let startShuffling = (decks, cardsQuantity) => {
+            if (decks.length < 1) {
+                return;
+            }
+            let r = Math.floor(Math.random() * cardsQuantity);
+            shuffledDeck.push(decks[r]);
+            let reducedDeck = decks.filter(card => card !== decks[r])
+            startShuffling(reducedDeck, cardsQuantity - 1)
         }
-        return deck;
+        startShuffling(deck, 36)
+        return shuffledDeck;
     }
     takeOneCard = (someDeck) => {
         return someDeck.pop()
