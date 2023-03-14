@@ -24,7 +24,7 @@ class Card {
 }
 
 const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
-const levels = [6, 7 , 8, 9, 10, 'J', 'Q', 'K', 'A'];
+const levels = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
 class CardsDeck {
     generateCardsDeck = (levels, suits) => {
@@ -48,20 +48,24 @@ class CardsDeck {
     takeOneCard = (someDeck) => {
         return someDeck.pop()
     }
-    putOneCard = (oneCard) => {
-        let pl1 = [];
-        pl1.push(oneCard);
-        return pl1;
+    putOneCard = (oneCard, playerDeck) => {
+        playerDeck.push(oneCard);
+        return playerDeck;
     }
 }
 const deck = new CardsDeck();
 const deck1 = deck.generateCardsDeck(levels, suits);
 const shuffledDeck = deck.shuffleDeck(deck1);
+let player1 = [];
+let player2 = [];
 
-
-const dealCards = (someDeck) => {
-    let topCard = deck.takeOneCard(someDeck);
-    return deck.putOneCard(topCard);
+const dealCards = (someDeck, player1Deck, player2Deck) => {
+    for (let i = 0; i < 6; i++) {
+        let topCard = deck.takeOneCard(someDeck);
+        deck.putOneCard(topCard, player1Deck);
+        topCard = deck.takeOneCard(someDeck);
+        deck.putOneCard(topCard, player2Deck);
+    }
 }
 
 
