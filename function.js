@@ -68,6 +68,8 @@ const shuffleDeck = (deck) => {
         }
         let r = Math.floor(Math.random() * cardsQuantity);
         shuffledDeck.push(deck[r]);
+        console.log(shuffledDeck);
+        console.log('====');
         deck.filter(card => card !== deck[r])
         startShuffling(deck, cardsQuantity - 1)
     }

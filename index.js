@@ -69,6 +69,6 @@ const dealRealCards = (player1Deck) => {
     }
 }
 
-dealRealCards(play1Deck,play2Deck);
+dealRealCards(play1Deck);
 
 
