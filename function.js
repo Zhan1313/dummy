@@ -36,15 +36,6 @@ class CardsDeck {
         }
         return cardDeck;
     }
-    shuffleDeck = (deck) => {
-        for (let i = 0; i < deck.length; i++) {
-            let r = Math.floor(Math.random() * 36);
-            let temp = deck[r];
-            deck[r] = deck[i];
-            deck[i] = temp;
-        }
-        return deck;
-    }
     takeOneCard = (someDeck) => {
         return someDeck.pop()
     }
@@ -69,19 +60,7 @@ const dealCards = (someDeck, player1Deck, player2Deck) => {
 }
 
 
-
-
-/*dealingCards = (cardsPack) => {
-    let player1 = [];
-    let player2 = [];
-    for (let i = 0; player1.length < 6; i + 2) {
-        player1.push(cardsPack[i]);
-        player2.push(cardsPack[i + 1]);
-    }
-    return [player1, player2]
-}*/
-
-/*const shuffleDeck = (deck) => {
+const shuffleDeck = (deck) => {
     let shuffledDeck = [];
     let startShuffling = (deck, cardsQuantity) => {
         if (deck.length < 1) {
@@ -95,6 +74,7 @@ const dealCards = (someDeck, player1Deck, player2Deck) => {
     startShuffling(deck, 36)
     return shuffledDeck;
 }
+/*
 shuffleDeck(deck1)*/
 
 
