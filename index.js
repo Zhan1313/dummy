@@ -1,3 +1,21 @@
+const dummyPlay = (Card1_Level, Card1_Suit, Card2_Level, Card2_Suit, SuperSuit) => {
+    let levels = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    for (let i = 0; i < levels.length; i++) {
+        if (Card1_Level === levels[i]) {
+            for(let j = 0; j < levels.length; j++) {
+                if(Card2_Level === levels[j]) {
+                    if (j > i && Card1_Suit === Card2_Suit) {
+                        return true;
+                    } else if ((j <= i && Card2_Suit === SuperSuit) && Card1_Suit !== SuperSuit) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }
+    }
+}
+
 class Card {
     constructor(level, suit) {
         this.level = level;
@@ -51,6 +69,7 @@ const player1Elem = wrapperElem.querySelector('.player1');
 const player2Elem = wrapperElem.querySelector('.player2');
 const middleFieldElem = wrapperElem.querySelector('.middleField');
 const playFieldElem = middleFieldElem.querySelector('.playField');
+const mainDeckElem = middleFieldElem.querySelector('.mainDeck');
 
 const dealCards = (someDeck, player1Deck, player2Deck) => {
     for (let i = 0; i < 6; i++) {
@@ -59,18 +78,16 @@ const dealCards = (someDeck, player1Deck, player2Deck) => {
         topCard = deck.takeOneCard(someDeck);
         deck.putOneCard(topCard, player2Deck);
     }
-    return [player1Deck, player2Deck];
+    let masterSuit = deck.takeOneCard(someDeck);
+    return [player1Deck, player2Deck, masterSuit];
 }
 const twoPlayersDecks = dealCards(shuffledDeck, player1, player2);
 let play1Deck = twoPlayersDecks[0];
 let play2Deck = twoPlayersDecks[1];
+let masterSuit = twoPlayersDecks[2];
+let playField = [];
 
-const oneCardOut = (chosenCard, player1Deck) => {
-    let lessCards = player1Deck.filter(card => card !== chosenCard);
-    dealRealCards(lessCards);
-}
-
-const dealRealCards = (player1Deck) => {
+const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
     for (let i = 0; i < player1Deck.length; i++) {
         player1Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
@@ -81,23 +98,29 @@ const dealRealCards = (player1Deck) => {
             console.log('this is less now', lessCards)
             console.log(e.target)
             pl1CardImgElem.remove();
-            playFieldElem.insertAdjacentHTML('afterbegin', player1Deck[i])
+            let cardOnPlay = player1Deck.filter(card => card === player1Deck[i])[0];
+            playField.push(cardOnPlay);
+            playFieldElem.insertAdjacentHTML('afterbegin',
+                `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
+                    alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
+            setTimeout(() => {
+                let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
+                    player2Deck[i].level, player2Deck[i].suit, masterSuit);
+                if (player2IsBigger === true) {
+                    playField.push(player2Deck[i]);
+                    playFieldElem.insertAdjacentHTML('afterbegin',
+                        `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
+                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
+                }
+            }, 2000)
         })
         player2Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/BackSideCard.png" 
-                    alt="BackSideCard"/>`);
+            `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
+                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
     }
+    mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuit
+        .level}${masterSuit.suit}.png" alt="${masterSuit.level}${masterSuit.suit}"/>`)
 }
 
-dealRealCards(play1Deck);
+dealRealCards(play1Deck, play2Deck, masterSuit, playField);
 
-const useCard = () => {
-    const hitCard = (player1Deck) => {
-        let lessCards = player1Deck.filter(card => card !== player1Deck[i]);
-        console.log('this is less now', lessCards)
-        console.log(e.target)
-        pl1CardImgElem.remove();
-        hitCard(lessCards)
-    }
-    hitCard(player1Deck)
-}
