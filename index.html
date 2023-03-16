@@ -10,33 +10,40 @@
           height: 550px;
       }
       .wrapper img {
-          width: 100px;
-          height: 120px;
+          margin: auto;
+          width: 95px;
+          height: 115px;
       }
       .player1 {
-          height: 180px;
+          height: 120px;
+          margin-bottom: 10px;
       }
       .player2 {
-          height: 180px;
+          height: 120px;
+          margin-top: 10px;
       }
+      .middleField .mainDeck {
+           width: 100px;
+           height: 120px;
+           border: 2px solid blue;
+           margin: 5px 5px;
+       }
       .middleField .playField {
           width: 100px;
           height: 120px;
-          border: 3px solid red;
+          border: 2px solid green;
+          margin: auto;
       }
       .middleField .finishedCards {
           width: 100px;
           height: 120px;
-          border: 1px solid green;
-      }
-      .middleField .mainDeck {
-          width: 100px;
-          height: 120px;
-          border: 1px solid blue;
+          border: 2px solid red;
+          margin: 5px 5px;
       }
       .middleField {
+          display: flex;
           width: 500px;
-          height: 180px;
+          height: 150px;
           border: 2px solid black;
       }
     </style>
@@ -47,9 +54,9 @@
 
     </div>
     <div class="middleField">
-        <div class="finishedCards"></div>
-        <div class="playField"></div>
         <div class="mainDeck"></div>
+        <div class="playField"></div>
+        <div class="finishedCards"></div>
     </div>
     <div class="player2">
 

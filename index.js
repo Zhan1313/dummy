@@ -106,13 +106,27 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
             console.log(playField);
             console.log(playFieldElem);
             setTimeout(() => {
-                console.log('hey')
-                for (let j = 0; j < player2Deck; j++) {
+                for (let j = 1; j < 24; j++) {
+                    if (i === 3) {
+                        return console.log('what')
+                    } else {
+                        console.log('ok')
+                    }
+                }
+                /*console.log('=====')
+                playField.push(player2Deck[i]);
+                let pl2CardImgElem = player2Elem.querySelectorAll('img')[i];
+                pl2CardImgElem.remove();
+                playFieldElem.insertAdjacentHTML('afterbegin',
+                    `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
+                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
+                console.log(playField);
+                console.log(playFieldElem);*/
+                /*for (let j = 0; j < player2Deck; j++) {
+                    /!*let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
+                    player2Deck[j].level, player2Deck[j].suit, masterSuit);*!/
 
-                    /*let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
-                    player2Deck[j].level, player2Deck[j].suit, masterSuit);*/
-
-                    /*if (player2IsBigger === true) {
+                    /!*if (player2IsBigger === true) {
                         playField.push(player2Deck[j]);
                         playFieldElem.insertAdjacentHTML('afterbegin',
                             `<img src="./assets/${player2Deck[j].level}${player2Deck[j].suit}.png" 
@@ -120,8 +134,8 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
                         let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
                         pl2CardImgElem.remove();
                         return alert('hey');
-                    }*/
-                }
+                    }*!/
+                }*/
 
             }, 2000)
         })
