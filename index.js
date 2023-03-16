@@ -110,23 +110,25 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
                 player2Deck[i].level, player2Deck[i].suit, masterSuit);
             console.log('player2 wins?', player2IsBigger);
             console.log('====');
-
-            let fieldPlay1ImgElem = playFieldElem.querySelector('img');
-            fieldPlay1ImgElem.remove();
-            player2Deck.push(cardOnPlay);
-            console.log('this is updated player2 cards', player2Deck);
-            player2Elem.insertAdjacentHTML('beforeend',
-                `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
+            if (player2IsBigger === true) {
+                let card2OnPlay = player2Deck.filter(card => card === player2Deck[i])[0];
+                playField.push(card2OnPlay);
+                console.log('this is updated playField cards', playField);
+                let pl2CardImgElem = player2Elem.querySelectorAll('img')[i];
+                pl2CardImgElem.remove();
+                playFieldElem.insertAdjacentHTML('afterbegin',
+                    `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
+                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
+            } else {
+                let fieldPlay1ImgElem = playFieldElem.querySelector('img');
+                fieldPlay1ImgElem.remove();
+                player2Deck.push(cardOnPlay);
+                console.log('this is updated player2 cards', player2Deck);
+                player2Elem.insertAdjacentHTML('beforeend',
+                    `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
                     alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
-
-            /*let card2OnPlay = player2Deck.filter(card => card === player2Deck[i])[0];
-            playField.push(card2OnPlay);
-            console.log(playField);
-            let pl2CardImgElem = player2Elem.querySelectorAll('img')[i];
-            pl2CardImgElem.remove();
-            playFieldElem.insertAdjacentHTML('afterbegin',
-                `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
-                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);*/
+            }
+            
 
             /*setTimeout((player2Deck) => {
                 playField.push(player2Deck[i]);
