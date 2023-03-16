@@ -84,10 +84,10 @@ const dealCards = (someDeck, player1Deck, player2Deck) => {
 const twoPlayersDecks = dealCards(shuffledDeck, player1, player2);
 let play1Deck = twoPlayersDecks[0];
 let play2Deck = twoPlayersDecks[1];
-let masterSuit = twoPlayersDecks[2];
+let masterSuitCard = twoPlayersDecks[2];
 let playField = [];
 
-const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
+const dealRealCards = (player1Deck, player2Deck, masterSuitCard, playField) => {
     for (let i = 0; i < player1Deck.length; i++) {
         player1Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
@@ -108,29 +108,28 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
             console.log('this is cards on playField', playFieldElem);
             for (let j = 0; j < player2Deck.length; j++) {
                 let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
-                    player2Deck[j].level, player2Deck[j].suit, masterSuit);
+                    player2Deck[j].level, player2Deck[j].suit, masterSuitCard.suit);
                 console.log('player2 wins?', player2IsBigger);
-                console.log('====');
-            }
-
-            /*if (player2IsBigger === true) {
-                let card2OnPlay = player2Deck.filter(card => card === player2Deck[i])[0];
-                playField.push(card2OnPlay);
-                console.log('this is updated playField cards', playField);
-                let pl2CardImgElem = player2Elem.querySelectorAll('img')[i];
-                pl2CardImgElem.remove();
-                playFieldElem.insertAdjacentHTML('afterbegin',
-                    `<img src="./assets/${card2OnPlay.level}${card2OnPlay.suit}.png" 
+                console.log('====', j);
+                if (player2IsBigger === true) {
+                    let card2OnPlay = player2Deck.filter(card => card === player2Deck[j])[0];
+                    playField.push(card2OnPlay);
+                    console.log('this is updated playField cards', playField);
+                    let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
+                    pl2CardImgElem.remove();
+                    playFieldElem.insertAdjacentHTML('afterbegin',
+                        `<img src="./assets/${card2OnPlay.level}${card2OnPlay.suit}.png" 
                     alt="${card2OnPlay.level}${card2OnPlay.suit}"/>`);
-            } else {
-                let fieldPlay1ImgElem = playFieldElem.querySelector('img');
-                fieldPlay1ImgElem.remove();
-                player2Deck.push(cardOnPlay);
-                console.log('this is updated player2 cards', player2Deck);
-                player2Elem.insertAdjacentHTML('beforeend',
-                    `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
+                    return;
+                }
+            }
+            let fieldPlay1ImgElem = playFieldElem.querySelector('img');
+            fieldPlay1ImgElem.remove();
+            player2Deck.push(cardOnPlay);
+            console.log('this is updated player2 cards', player2Deck);
+            player2Elem.insertAdjacentHTML('beforeend',
+                `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
                     alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
-            }*/
 
 
             /*setTimeout((player2Deck) => {
@@ -158,9 +157,9 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
             `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
                     alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
     }
-    mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuit
-        .level}${masterSuit.suit}.png" alt="${masterSuit.level}${masterSuit.suit}"/>`)
+    mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuitCard
+        .level}${masterSuitCard.suit}.png" alt="${masterSuitCard.level}${masterSuitCard.suit}"/>`)
 }
 
-dealRealCards(play1Deck, play2Deck, masterSuit, playField);
+dealRealCards(play1Deck, play2Deck, masterSuitCard, playField);
 
