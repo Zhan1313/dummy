@@ -103,15 +103,18 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
             playFieldElem.insertAdjacentHTML('afterbegin',
                 `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
                     alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
+            console.log(playField);
+            console.log(playFieldElem);
             setTimeout(() => {
-                let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
+                alert('its ok');
+                /*let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
                     player2Deck[i].level, player2Deck[i].suit, masterSuit);
                 if (player2IsBigger === true) {
                     playField.push(player2Deck[i]);
                     playFieldElem.insertAdjacentHTML('afterbegin',
                         `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
                     alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
-                }
+                }*/
             }, 2000)
         })
         player2Elem.insertAdjacentHTML('beforeend',
