@@ -106,15 +106,23 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
             console.log(playField);
             console.log(playFieldElem);
             setTimeout(() => {
-                alert('its ok');
-                /*let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
-                    player2Deck[i].level, player2Deck[i].suit, masterSuit);
-                if (player2IsBigger === true) {
-                    playField.push(player2Deck[i]);
-                    playFieldElem.insertAdjacentHTML('afterbegin',
-                        `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
-                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
-                }*/
+                console.log('hey')
+                for (let j = 0; j < player2Deck; j++) {
+
+                    /*let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
+                    player2Deck[j].level, player2Deck[j].suit, masterSuit);*/
+
+                    /*if (player2IsBigger === true) {
+                        playField.push(player2Deck[j]);
+                        playFieldElem.insertAdjacentHTML('afterbegin',
+                            `<img src="./assets/${player2Deck[j].level}${player2Deck[j].suit}.png" 
+                                        alt="${player2Deck[j].level}${player2Deck[j].suit}"/>`);
+                        let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
+                        pl2CardImgElem.remove();
+                        return alert('hey');
+                    }*/
+                }
+
             }, 2000)
         })
         player2Elem.insertAdjacentHTML('beforeend',
