@@ -106,30 +106,32 @@ const dealRealCards = (player1Deck, player2Deck, masterSuitCard, playField) => {
                     alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
             console.log('this is cards on playField', playField);
             console.log('this is cards on playField', playFieldElem);
-            for (let j = 0; j < player2Deck.length; j++) {
-                let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
-                    player2Deck[j].level, player2Deck[j].suit, masterSuitCard.suit);
-                console.log('player2 wins?', player2IsBigger);
-                console.log('====', j);
-                if (player2IsBigger === true) {
-                    let card2OnPlay = player2Deck.filter(card => card === player2Deck[j])[0];
-                    playField.push(card2OnPlay);
-                    console.log('this is updated playField cards', playField);
-                    let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
-                    pl2CardImgElem.remove();
-                    playFieldElem.insertAdjacentHTML('afterbegin',
-                        `<img src="./assets/${card2OnPlay.level}${card2OnPlay.suit}.png" 
-                    alt="${card2OnPlay.level}${card2OnPlay.suit}"/>`);
-                    return;
+            setTimeout(() => {
+                for (let j = 0; j < player2Deck.length; j++) {
+                    let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
+                                                player2Deck[j].level, player2Deck[j].suit, masterSuitCard.suit);
+                    console.log('player2 wins?', player2IsBigger);
+                    console.log('====', j);
+                    if (player2IsBigger === true) {
+                        let card2OnPlay = player2Deck.filter(card => card === player2Deck[j])[0];
+                        playField.push(card2OnPlay);
+                        console.log('this is updated playField cards', playField);
+                        let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
+                        pl2CardImgElem.remove();
+                        playFieldElem.insertAdjacentHTML('afterbegin',
+                            `<img src="./assets/${card2OnPlay.level}${card2OnPlay.suit}.png" 
+                                    alt="${card2OnPlay.level}${card2OnPlay.suit}"/>`);
+                        return;
+                    }
                 }
-            }
-            let fieldPlay1ImgElem = playFieldElem.querySelector('img');
-            fieldPlay1ImgElem.remove();
-            player2Deck.push(cardOnPlay);
-            console.log('this is updated player2 cards', player2Deck);
-            player2Elem.insertAdjacentHTML('beforeend',
-                `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
-                    alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
+                let fieldPlay1ImgElem = playFieldElem.querySelector('img');
+                fieldPlay1ImgElem.remove();
+                player2Deck.push(cardOnPlay);
+                console.log('this is updated player2 cards', player2Deck);
+                player2Elem.insertAdjacentHTML('beforeend',
+                    `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
+                            alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
+            }, 2000);
 
 
             /*setTimeout((player2Deck) => {
