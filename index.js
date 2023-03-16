@@ -93,38 +93,48 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
             `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
                     alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
+
         pl1CardImgElem.addEventListener('click', (e) => {
             let lessCards = player1Deck.filter(card => card !== player1Deck[i]);
-            console.log('this is less now', lessCards)
-            console.log(e.target)
+            console.log('this is reduced cards of Player1', lessCards)
+            console.log('this is chosen card', e.target)
             pl1CardImgElem.remove();
             let cardOnPlay = player1Deck.filter(card => card === player1Deck[i])[0];
             playField.push(cardOnPlay);
             playFieldElem.insertAdjacentHTML('afterbegin',
-                `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
-                    alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
+                `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
+                    alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
+            console.log('this is cards on playField', playField);
+            console.log('this is cards on playField', playFieldElem);
+            let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
+                player2Deck[i].level, player2Deck[i].suit, masterSuit);
+            console.log('player2 wins?', player2IsBigger);
+            console.log('====');
+
+            let fieldPlay1ImgElem = playFieldElem.querySelector('img');
+            fieldPlay1ImgElem.remove();
+            player2Deck.push(cardOnPlay);
+            console.log('this is updated player2 cards', player2Deck);
+            player2Elem.insertAdjacentHTML('beforeend',
+                `<img src="./assets/${cardOnPlay.level}${cardOnPlay.suit}.png" 
+                    alt="${cardOnPlay.level}${cardOnPlay.suit}"/>`);
+
+            /*let card2OnPlay = player2Deck.filter(card => card === player2Deck[i])[0];
+            playField.push(card2OnPlay);
             console.log(playField);
-            console.log(playFieldElem);
-            setTimeout(() => {
-                for (let j = 1; j < 24; j++) {
-                    if (i === 3) {
-                        return console.log('what')
-                    } else {
-                        console.log('ok')
-                    }
-                }
-                /*console.log('=====')
+            let pl2CardImgElem = player2Elem.querySelectorAll('img')[i];
+            pl2CardImgElem.remove();
+            playFieldElem.insertAdjacentHTML('afterbegin',
+                `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
+                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);*/
+
+            /*setTimeout((player2Deck) => {
                 playField.push(player2Deck[i]);
                 let pl2CardImgElem = player2Elem.querySelectorAll('img')[i];
                 pl2CardImgElem.remove();
                 playFieldElem.insertAdjacentHTML('afterbegin',
                     `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
                     alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
-                console.log(playField);
-                console.log(playFieldElem);*/
-                /*for (let j = 0; j < player2Deck; j++) {
-                    /!*let player2IsBigger = dummyPlay(player1Deck[i].level, player1Deck[i].suit,
-                    player2Deck[j].level, player2Deck[j].suit, masterSuit);*!/
 
                     /!*if (player2IsBigger === true) {
                         playField.push(player2Deck[j]);
@@ -135,9 +145,9 @@ const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
                         pl2CardImgElem.remove();
                         return alert('hey');
                     }*!/
-                }*/
+                }*!/
 
-            }, 2000)
+            }, 2000)*/
         })
         player2Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
