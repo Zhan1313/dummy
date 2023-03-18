@@ -1,54 +1,31 @@
-const dummyPlay = (Card1_Level, Card1_Suit, Card2_Level, Card2_Suit, SuperSuit) => {
-    let levels = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-    for (let i = 0; i < levels.length; i++) {
-        if (Card1_Level === levels[i]) {
-            for(let j = 0; j < levels.length; j++) {
-                if(Card2_Level === levels[j]) {
-                    if (j > i && Card1_Suit === Card2_Suit) {
-                        return true;
-                    } else if ((j <= i && Card2_Suit === SuperSuit) && Card1_Suit !== SuperSuit) {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-        }
-    }
-}
+import { levels, suits } from "./levels_suits";
+import { dummyPlay } from "./comparison";
+import { Card } from "./card_Class";
 
-class Card {
-    constructor(level, suit) {
-        this.level = level;
-        this.suit = suit;
-    }
-}
-
-const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
-const levels = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
 class CardsDeck {
+    constructor() {
+        this.deck = [];
+        this.shuffledDeck = [];
+    }
     generateCardsDeck = (levels, suits) => {
-        let cardDeck = [];
         for (let i = 0; i < suits.length; i++) {
             for (let j = 0; j < levels.length; j++) {
-                cardDeck.push(new Card(levels[j], suits[i]));
+                this.deck.push(new Card(levels[j], suits[i]));
             }
         }
-        return cardDeck;
     }
-    shuffleDeck = (deck) => {
-        let shuffledDeck = [];
+    shuffleDeck = () => {
         let startShuffling = (decks, cardsQuantity) => {
             if (decks.length < 1) {
                 return;
             }
             let r = Math.floor(Math.random() * cardsQuantity);
-            shuffledDeck.push(decks[r]);
+            this.shuffledDeck.push(decks[r]);
             let reducedDeck = decks.filter(card => card !== decks[r])
             startShuffling(reducedDeck, cardsQuantity - 1)
         }
-        startShuffling(deck, 36)
-        return shuffledDeck;
+        startShuffling(this.deck, this.deck.length)
     }
     takeOneCard = (someDeck) => {
         return someDeck.pop()
@@ -58,9 +35,10 @@ class CardsDeck {
         return playerDeck;
     }
 }
-const deck = new CardsDeck();
-const deck1 = deck.generateCardsDeck(levels, suits);
-const shuffledDeck = deck.shuffleDeck(deck1);
+const masterSuitCard = new CardsDeck();
+masterSuitCard.generateCardsDeck(levels, suits);
+masterSuitCard.deck.shuffleDeck();
+
 let player1 = [];
 let player2 = [];
 
@@ -84,38 +62,45 @@ const dealCards = (someDeck, player1Deck, player2Deck) => {
 const twoPlayersDecks = dealCards(shuffledDeck, player1, player2);
 let play1Deck = twoPlayersDecks[0];
 let play2Deck = twoPlayersDecks[1];
-let masterSuitCard = twoPlayersDecks[2];
+let masterSuit = twoPlayersDecks[2];
 let playField = [];
 
-const dealRealCards = (player1Deck, player2Deck, masterSuitCard, playField) => {
+const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
     for (let i = 0; i < player1Deck.length; i++) {
         player1Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
                     alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
+
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
             let player1AttackCard = player1Deck.splice(i, 1)[0];
             console.log('this is Player1Deck', player1Deck);
             console.log('this is attacking card', player1AttackCard);
+
             pl1CardImgElem.remove();
             playField.push(player1AttackCard);
             console.log('this is cards on playField', playField);
+
             playFieldElem.insertAdjacentHTML('afterbegin',
                 `<img src="./assets/${player1AttackCard.level}${player1AttackCard.suit}.png" 
                     alt="${player1AttackCard.level}${player1AttackCard.suit}"/>`);
+
             setTimeout(() => {
                 for (let j = 0; j < player2Deck.length; j++) {
                     let player2IsBigger = dummyPlay(player1AttackCard.level, player1AttackCard.suit,
                                                 player2Deck[j].level, player2Deck[j].suit, masterSuitCard.suit);
                     console.log('player2 wins?', player2IsBigger);
                     console.log('====', j);
+
                     if (player2IsBigger === true) {
                         let player2DefenceCard = player2Deck.splice(j, 1)[0];
                         console.log('this is updated player2 cards', player2Deck);
                         console.log('this is defendCard of player2', player2DefenceCard);
+
                         playField.push(player2DefenceCard);
                         console.log('this is updated playField cards', playField);
+
                         let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
                         pl2CardImgElem.remove();
                         playFieldElem.insertAdjacentHTML('afterbegin',
@@ -126,10 +111,12 @@ const dealRealCards = (player1Deck, player2Deck, masterSuitCard, playField) => {
                 }
                 playField.splice(0, 1);
                 console.log('this is updated cards on playField', playField);
+
                 let fieldPlay1ImgElem = playFieldElem.querySelector('img');
                 fieldPlay1ImgElem.remove();
                 player2Deck.push(player1AttackCard);
                 console.log('this is updated player2 cards', player2Deck);
+
                 player2Elem.insertAdjacentHTML('beforeend',
                     `<img src="./assets/${player1AttackCard.level}${player1AttackCard.suit}.png" 
                             alt="${player1AttackCard.level}${player1AttackCard.suit}"/>`);
@@ -139,11 +126,11 @@ const dealRealCards = (player1Deck, player2Deck, masterSuitCard, playField) => {
             `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
                     alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
     }
-    mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuitCard
-        .level}${masterSuitCard.suit}.png" alt="${masterSuitCard.level}${masterSuitCard.suit}"/>`)
+    mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuit
+        .level}${masterSuit.suit}.png" alt="${masterSuit.level}${masterSuit.suit}"/>`)
 }
 
-dealRealCards(play1Deck, play2Deck, masterSuitCard, playField);
+dealRealCards(play1Deck, play2Deck, masterSuit, playField);
 
 /*
 const dealRealCards = (player1Deck, player2Deck, masterSuitCard, playField) => {
