@@ -3,7 +3,7 @@ import { CardsDeck } from "./cardsDeck_Class";
 
 const masterSuitCard = new CardsDeck();
 masterSuitCard.generateCardsDeck(levels, suits);
-masterSuitCard.deck.shuffleDeck();
+masterSuitCard.shuffleDeck();
 let player1 = [];
 let player2 = [];
 
