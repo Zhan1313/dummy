@@ -1,5 +1,6 @@
+import { levels } from "./levels_suits";
+
 export const dummyPlay = (Card1_Level, Card1_Suit, Card2_Level, Card2_Suit, SuperSuit) => {
-    let levels = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     for (let i = 0; i < levels.length; i++) {
         if (Card1_Level === levels[i]) {
             for(let j = 0; j < levels.length; j++) {
