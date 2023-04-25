@@ -2,7 +2,7 @@
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem } from "./DOM_elements";
 
-module.exports = (player1Deck, player2Deck, masterSuit, playField) => {
+export const welcome = (player1Deck, player2Deck, masterSuit, playField) => {
     for (let i = 0; i < player1Deck.length; i++) {
         player1Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
