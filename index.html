@@ -4,64 +4,85 @@
     <meta charset="UTF-8">
     <title>dummy_Game</title>
     <style>
-      .wrapper {
-          padding: 20px;
-          border: 1px solid ;
-          height: 550px;
-      }
-      .wrapper img {
-          margin: auto;
-          width: 95px;
-          height: 115px;
-      }
-      .player1 {
-          height: 120px;
-          margin-bottom: 10px;
-      }
-      .player2 {
-          height: 120px;
-          margin-top: 10px;
-      }
-      .middleField .mainDeck {
-           width: 100px;
-           height: 120px;
-           border: 2px solid blue;
-           margin: 5px 5px;
-       }
-      .middleField .playField {
-          display: flex;
-          width: 150px;
-          height: 120px;
-          border: 2px solid green;
-          margin: auto;
-      }
-      .middleField .finishedCards {
-          width: 100px;
-          height: 120px;
-          border: 2px solid red;
-          margin: 5px 5px;
-      }
-      .middleField {
-          display: flex;
-          width: 500px;
-          height: 150px;
-          border: 2px solid black;
-      }
+        .wrapper {
+            padding: 20px;
+            border: 1px solid ;
+            height: 550px;
+        }
+        .player1 img {
+            margin: auto;
+            width: 90px;
+            height: 115px;
+        }
+        .player2 img {
+            margin: auto;
+            width: 90px;
+            height: 115px;
+        }
+        .player1 {
+            height: 120px;
+            margin-bottom: 10px;
+        }
+        .player2 {
+            height: 120px;
+            margin-top: 10px;
+        }
+        .middleField .mainDeck {
+            width: 95px;
+            height: 120px;
+            border: 2px solid blue;
+            margin: 5px 5px;
+        }
+        .middleField .playField {
+            display: flex;
+            width: 500px;
+            height: 120px;
+            border: 2px solid green;
+            margin: auto;
+        }
+        .middleField .finishedCards {
+            width: 95px;
+            height: 120px;
+            border: 2px solid red;
+            margin: 5px 5px;
+        }
+        .middleField {
+            display: flex;
+            width: 800px;
+            height: 150px;
+            border: 2px solid black;
+        }
+        .middleField .playField img {
+            width: 90px;
+            height: 115px;
+        }
+        .pl1_beaten {
+            display: flex;
+        }
+        .beaten {
+            margin-left: auto;
+        }
+        .getMoreCards {
+            margin-left: auto;
+        }
+        .wrongCard {
+            border: 1px solid red;
+        }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <div class="player1">
-
+    <div class="pl1_beaten">
+        <div class="player1"></div>
+        <div class="beaten"><button type="button" disabled>Beaten</button></div>
+        <div class="getMoreCards"><button type="button">Get more cards</button></div>
     </div>
     <div class="middleField">
         <div class="mainDeck">Козырь</div>
         <div class="playField"></div>
         <div class="finishedCards"></div>
     </div>
-    <div class="player2">
-
-    </div>
+    <div class="player2"></div>
 </div>
 <script src="./dist/build.js"></script>
 </body>

@@ -1,6 +1,6 @@
 'use strict';
 
 import { play1Deck, play2Deck, masterSuit, playField, finishedCards } from "./deal_cards";
-import { welcome } from "./main";
+import { dealRealCards } from "./main";
 
-welcome(play1Deck, play2Deck, masterSuit, playField, finishedCards);
+dealRealCards(play1Deck, play2Deck, masterSuit, playField, finishedCards);
