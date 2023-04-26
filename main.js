@@ -153,12 +153,12 @@ const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards) => {
     for (let i = 0; i < player1Deck.length; i++) {
         dealPlayer1CardImages(player1Deck, i);
-        console.log('wats')
+        console.log('new updated')
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
             let pl1CardImages = player1Elem.querySelectorAll('img');
-            console.log('wats')
+            console.log('new updated ...')
 
             if (pl1CardImgElem === pl1CardImages.item(i)) {
                 player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i, player1Deck);
