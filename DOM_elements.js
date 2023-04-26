@@ -5,3 +5,6 @@ export const player2Elem = wrapperElem.querySelector('.player2');
 const middleFieldElem = wrapperElem.querySelector('.middleField');
 export const playFieldElem = middleFieldElem.querySelector('.playField');
 export const mainDeckElem = middleFieldElem.querySelector('.mainDeck');
+export const finishedCardsElem = middleFieldElem.querySelector('.finishedCards');
+export const beatenButtonElem = wrapperElem.querySelector('.beaten button');
+export const getMoreCardsButtonElement = wrapperElem.querySelector('.getMoreCards button');

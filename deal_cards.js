@@ -22,3 +22,4 @@ export let play1Deck = twoPlayersDecks[0];
 export let play2Deck = twoPlayersDecks[1];
 export let masterSuit = twoPlayersDecks[2];
 export let playField = [];
+export let finishedCards = [];

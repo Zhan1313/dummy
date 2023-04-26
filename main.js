@@ -1,20 +1,21 @@
 'use strict';
 import { dummyPlay } from "./comparison";
-import { player1Elem, player2Elem, playFieldElem, mainDeckElem } from "./DOM_elements";
+import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
+    beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
 
 export const welcome = (player1Deck, player2Deck, masterSuit, playField) => {
     for (let i = 0; i < player1Deck.length; i++) {
         player1Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
                     alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
-
+        console.log('wa')
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
             let player1AttackCard = player1Deck.splice(i, 1)[0];
             console.log('this is Player1Deck', player1Deck);
             console.log('this is attacking card', player1AttackCard);
-
+            console.log('wa')
             pl1CardImgElem.remove();
             playField.push(player1AttackCard);
             console.log('this is cards on playField', playField);
