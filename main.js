@@ -2,6 +2,7 @@
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
+import {finishedCards} from "./deal_cards";
 
 const dealPlayer1CardImages = (player1Deck, number) => {
     player1Elem.insertAdjacentHTML('beforeend',
@@ -151,12 +152,10 @@ const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index
     }
 }
 
-export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField) => {
+export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards) => {
     for (let i = 0; i < player1Deck.length; i++) {
-        player1Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${player1Deck[i].level}${player1Deck[i].suit}.png" 
-                    alt="${player1Deck[i].level}${player1Deck[i].suit}"/>`);
-        console.log('wat')
+        dealPlayer1CardImages(player1Deck, i);
+        console.log('wats')
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
