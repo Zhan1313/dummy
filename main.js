@@ -14,6 +14,7 @@ const dealPlayer2CardImages = (player2Deck, number) => {
         `<img src="./assets/${player2Deck[number].level}${player2Deck[number].suit}.png" 
                     alt="${player2Deck[number].level}${player2Deck[number].suit}"/>`);
 }
+
 const getPlayer1AttackCard = (player1Deck, index) => {
     let player1AttackCard = player1Deck.filter(card => card === player1Deck[index])[0];
     console.log('this is attacking card', player1AttackCard);
@@ -159,17 +160,13 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
-            let player1AttackCard = player1Deck.splice(i, 1)[0];
-            console.log('this is Player1Deck', player1Deck);
-            console.log('this is attacking card', player1AttackCard);
-            console.log('wa')
-            pl1CardImgElem.remove();
-            playField.push(player1AttackCard);
-            console.log('this is cards on playField', playField);
+            let pl1CardImages = player1Elem.querySelectorAll('img');
+            console.log('wats')
 
-            playFieldElem.insertAdjacentHTML('afterbegin',
-                `<img src="./assets/${player1AttackCard.level}${player1AttackCard.suit}.png" 
-                    alt="${player1AttackCard.level}${player1AttackCard.suit}"/>`);
+            if (pl1CardImgElem === pl1CardImages.item(i)) {
+                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i, player1Deck);
+            }
+
 
             setTimeout(() => {
                 for (let j = 0; j < player2Deck.length; j++) {
