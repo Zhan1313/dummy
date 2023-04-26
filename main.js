@@ -153,7 +153,7 @@ const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards) => {
     for (let i = 0; i < player1Deck.length; i++) {
         dealPlayer1CardImages(player1Deck, i);
-        console.log('new updated')
+        console.log('new updated...')
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
@@ -185,7 +185,7 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
 
         if (finishedCards.length === 0) {
             finishedCardsElem.insertAdjacentHTML('beforeend',
-                `<img src="assets/ADiamonds.PNG" alt="ADiamonds"/>`);
+                `<img src="assets/CardBack.png" alt="CardBack"/>`);
         }
 
         if (playField.length === 2) {
