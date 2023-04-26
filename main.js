@@ -2,7 +2,7 @@
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
-import {finishedCards} from "./deal_cards";
+import {finishedCards, masterSuit} from "./deal_cards";
 
 const dealPlayer1CardImages = (player1Deck, number) => {
     player1Elem.insertAdjacentHTML('beforeend',
@@ -54,9 +54,8 @@ const getPlayer2DefenceCard = (player2Deck, index) => {
     return player2DefenceCard;
 }
 const getUpdatedPlayer2Deck = (player2Deck, index) => {
-    let player2DeckArray = player2Deck.filter(card => card !== player2Deck[index]);
-    console.log('this is updated Player2Deck', player2DeckArray);
-    return player2DeckArray;
+    player2Deck.splice(index, 1);
+    console.log('this is updated Player2Deck', player2Deck);
 }
 const addCardImageToPlayer2 = (playField, index) => {
     player2Elem.insertAdjacentHTML('beforeend',
@@ -64,7 +63,7 @@ const addCardImageToPlayer2 = (playField, index) => {
                             alt="${playField[index].level}${playField[index].suit}"/>`);
 }
 
-const defenceStepOfComputer = (player1AttackCard, player2Deck, playField) => {
+const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField) => {
     setTimeout(() => {
         for (let j = 0; j < player2Deck.length; j++) {
             let player2IsBigger = dummyPlay(player1AttackCard.level, player1AttackCard.suit,
@@ -74,13 +73,13 @@ const defenceStepOfComputer = (player1AttackCard, player2Deck, playField) => {
 
             if (player2IsBigger === true) {
                 let player2DefenceCard = getPlayer2DefenceCard(player2Deck, j);
-                let updatedPlayer2Deck = getUpdatedPlayer2Deck(player2Deck, j);
+                getUpdatedPlayer2Deck(player2Deck, j);
                 let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
                 removeCardImage(pl2CardImgElem);
                 addCardToPlayField(playField, player2DefenceCard);
                 addCardImageToPlayField(player2DefenceCard);
                 disableBitoButton(false);
-                return updatedPlayer2Deck;
+                return;
             }
         }
         let playFieldImagesElements = playFieldElem.querySelectorAll('img');
@@ -130,8 +129,6 @@ const defenceStepOfComputer = (player1AttackCard, player2Deck, playField) => {
 
         playField.splice(0);
         console.log('this is updated cards on playField', playField);
-
-        console.log('this is updated player2 cards', player2Deck);
         console.log('========');
         console.log('========');
     }, 2000);
@@ -145,7 +142,7 @@ const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index
         addCardToPlayField(playField, player1AttackCard);
         addCardImageToPlayField(player1AttackCard);
         disableBitoButton(true);
-        defenceStepOfComputer(player1AttackCard, player2Deck, playField);
+        defenceStepOfPlayer2(player1AttackCard, player2Deck, playField);
         return updatedPlayer1Deck;
     } else {
         pl1CardImgElem.className = 'wrongCard';
