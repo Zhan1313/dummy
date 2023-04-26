@@ -173,11 +173,51 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
             } else if (pl1CardImgElem === pl1CardImages.item(i - 5)) {
                 player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i - 5, player1Deck);
             }
-        })
-        player2Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${player2Deck[i].level}${player2Deck[i].suit}.png" 
-                    alt="${player2Deck[i].level}${player2Deck[i].suit}"/>`);
+        });
+        dealPlayer2CardImages(player2Deck, i);
     }
+
     mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuit
-        .level}${masterSuit.suit}.png" alt="${masterSuit.level}${masterSuit.suit}"/>`)
+        .level}${masterSuit.suit}.png" alt="${masterSuit.level}${masterSuit.suit}"/>`);
+
+    beatenButtonElem.addEventListener('click', () => {
+        let fieldCardsImgElements = playFieldElem.querySelectorAll('img');
+
+        if (finishedCards.length === 0) {
+            finishedCardsElem.insertAdjacentHTML('beforeend',
+                `<img src="assets/ADiamonds.PNG" alt="ADiamonds"/>`);
+        }
+
+        if (playField.length === 2) {
+            finishedCards.push(playField[0], playField[1]);
+
+            fieldCardsImgElements[0].remove();
+            fieldCardsImgElements[1].remove();
+
+        } else if (playField.length === 4) {
+            finishedCards.push(playField[0], playField[1], playField[2], playField[3]);
+
+            fieldCardsImgElements[0].remove();
+            fieldCardsImgElements[1].remove();
+            fieldCardsImgElements[2].remove();
+            fieldCardsImgElements[3].remove();
+
+        } else if (playField.length === 6) {
+            finishedCards.push(playField[0], playField[1], playField[2], playField[3], playField[4], playField[5]);
+
+            fieldCardsImgElements[0].remove();
+            fieldCardsImgElements[1].remove();
+            fieldCardsImgElements[2].remove();
+            fieldCardsImgElements[3].remove();
+            fieldCardsImgElements[4].remove();
+            fieldCardsImgElements[5].remove();
+        }
+        playField.splice(0);
+        console.log('=======================');
+        console.log('this is playField', playField);
+        console.log('this is beaten', finishedCards);
+        console.log('=======================');
+
+        beatenButtonElem.disabled = true;
+    });
 }
