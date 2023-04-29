@@ -2,12 +2,12 @@
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
-import {finishedCards, masterSuit} from "./deal_cards";
 
 const dealPlayer1CardImages = (player1Deck, number) => {
     player1Elem.insertAdjacentHTML('beforeend',
         `<img src="./assets/${player1Deck[number].level}${player1Deck[number].suit}.png" 
                     alt="${player1Deck[number].level}${player1Deck[number].suit}"/>`);
+    player1Elem.style.boxShadow = 'antiquewhite';
 }
 const dealPlayer2CardImages = (player2Deck, number) => {
     player2Elem.insertAdjacentHTML('beforeend',
