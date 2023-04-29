@@ -57,6 +57,20 @@ const getUpdatedPlayer2Deck = (player2Deck, index) => {
     player2Deck.splice(index, 1);
     console.log('this is updated Player2Deck', player2Deck);
 }
+
+const player2TakesUnbeatenCardsFromPlayField = (playField, player2Deck) => {
+    if (playField.length === 1) {
+        player2Deck.push(playField[0]);
+    } else if (playField.length === 3) {
+        player2Deck.push(playField[0], playField[1], playField[2]);
+    } else if (playField.length === 5) {
+        player2Deck.push(playField[0], playField[1], playField[2], playField[3], playField[4]);
+    }
+    playField.splice(0);
+    console.log('this is updated cards on playField', playField);
+    console.log('========');
+    console.log('========');
+}
 const addCardImageToPlayer2 = (playField, index) => {
     player2Elem.insertAdjacentHTML('beforeend',
         `<img src="./assets/${playField[index].level}${playField[index].suit}.png" 
@@ -83,6 +97,8 @@ const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField) => {
             }
         }
         let playFieldImagesElements = playFieldElem.querySelectorAll('img');
+
+        player2TakesUnbeatenCardsFromPlayField(playField, player2Deck);
 
         if (playField.length === 1) {
             player2Deck.push(playField[0]);
@@ -126,11 +142,6 @@ const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField) => {
                             <img src="./assets/${playField[4].level}${playField[4].suit}.png" 
                             alt="${playField[4].level}${playField[4].suit}"/>`);
         }
-
-        playField.splice(0);
-        console.log('this is updated cards on playField', playField);
-        console.log('========');
-        console.log('========');
     }, 2000);
 }
 
