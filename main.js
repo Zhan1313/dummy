@@ -27,9 +27,8 @@ const canPutCardOnPlayField = (playField, player1AttackCard) => {
     return playField.length === 0 || checkPlayFieldCardsLevels(playField, player1AttackCard);
 }
 const getUpdatedPlayer1Deck = (player1Deck, index) => {
-    let player1DeckArray = player1Deck.filter(card => card !== player1Deck[index]);
-    console.log('this is updated Player1Deck', player1DeckArray);
-    return player1DeckArray;
+    player1Deck.splice(index, 1);
+    console.log('this is updated Player1Deck', player1Deck);
 }
 const removeCardImage = (cardImgElem) => {
     cardImgElem.remove();
