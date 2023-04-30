@@ -2,6 +2,7 @@
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
+import {masterSuitCard} from "./deal_cards";
 
 const dealPlayer1CardImages = (player1Deck, number) => {
     player1Elem.insertAdjacentHTML('beforeend',
@@ -13,6 +14,10 @@ const dealPlayer2CardImages = (player2Deck, number) => {
     player2Elem.insertAdjacentHTML('beforeend',
         `<img src="./assets/${player2Deck[number].level}${player2Deck[number].suit}.png" 
                     alt="${player2Deck[number].level}${player2Deck[number].suit}"/>`);
+}
+
+const getPlayer1CardImages = () => {
+    return player1Elem.querySelectorAll('img');
 }
 
 const getPlayer1AttackCard = (player1Deck, index) => {
@@ -30,9 +35,11 @@ const getUpdatedPlayer1Deck = (player1Deck, index) => {
     player1Deck.splice(index, 1);
     console.log('this is updated Player1Deck', player1Deck);
 }
+
 const removeCardImage = (cardImgElem) => {
     cardImgElem.remove();
 }
+
 const addCardToPlayField = (playField, attackOrDefenceCard) => {
     playField.push(attackOrDefenceCard);
     console.log('this is cards on playField', playField);
@@ -173,7 +180,60 @@ const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index
     }
 }
 
-export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards) => {
+const player1Attack = (pl1CardImgElem, playField, player2Deck, index, player1Deck) => {
+    let pl1CardImages = getPlayer1CardImages();
+    //console.log(pl1CardImgElem === pl1CardImages.item(i));
+
+    if (pl1CardImgElem === pl1CardImages.item(index)) {
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index, player1Deck);
+    } else if (pl1CardImgElem === pl1CardImages.item(index - 1)) {
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 1, player1Deck);
+    } else if (pl1CardImgElem === pl1CardImages.item(index - 2)) {
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 2, player1Deck);
+    } else if (pl1CardImgElem === pl1CardImages.item(index - 3)) {
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 3, player1Deck);
+    } else if (pl1CardImgElem === pl1CardImages.item(index - 4)) {
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 4, player1Deck);
+    } else if (pl1CardImgElem === pl1CardImages.item(index - 5)) {
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 5, player1Deck);
+    }
+}
+
+const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuitCard) => {
+    for (let i = player1Deck.length; i < 6; i++) {
+
+        let topCard = masterSuitCard.takeOneCard();
+        masterSuitCard.putOneCard(topCard, player1Deck);
+
+        player1Elem.insertAdjacentHTML('beforeend',
+            `<img src="./assets/${topCard.level}${topCard.suit}.png"
+                    alt="${topCard.level}${topCard.suit}"/>`);
+
+        let pl1NewCardImgElem = player1Elem.querySelectorAll('img')[i];
+
+        pl1NewCardImgElem.addEventListener('click', () => {
+            player1Attack(pl1NewCardImgElem, playField, player2Deck, i, player1Deck);
+        })
+    }
+    for (let i = player2Deck.length; i < 6; i++) {
+        console.log('before pickup Player2 deck', player2Deck)
+
+        let topCard = masterSuitCard.takeOneCard();
+        masterSuitCard.putOneCard(topCard, player2Deck);
+        console.log('after pickup Player2 deck', player2Deck)
+
+        player2Elem.insertAdjacentHTML('beforeend',
+            `<img src="./assets/${topCard.level}${topCard.suit}.png"
+                    alt="${topCard.level}${topCard.suit}"/>`);
+    }
+    if (masterSuitCard.deck.length === 0) {
+        getMoreCardsButtonElement.innerHTML = 'Cards finished';
+        getMoreCardsButtonElement.disabled = true;
+    }
+    //getMoreCardsButtonElement.disabled = true;
+}
+
+export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards, masterSuitCard) => {
     for (let i = 0; i < player1Deck.length; i++) {
         dealPlayer1CardImages(player1Deck, i);
         console.log('new updated.')

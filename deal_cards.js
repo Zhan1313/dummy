@@ -1,7 +1,7 @@
 import { levels, suits } from "./levels_suits";
 import { CardsDeck } from "./cardsDeck_Class";
 
-const masterSuitCard = new CardsDeck();
+export let masterSuitCard = new CardsDeck();
 masterSuitCard.generateCardsDeck(levels, suits);
 masterSuitCard.shuffleDeck();
 let player1 = [];
