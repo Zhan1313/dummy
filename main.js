@@ -2,7 +2,6 @@
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
-import {masterSuitCard} from "./deal_cards";
 
 const dealPlayer1CardImages = (player1Deck, number) => {
     player1Elem.insertAdjacentHTML('beforeend',
@@ -216,11 +215,9 @@ const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuit
         })
     }
     for (let i = player2Deck.length; i < 6; i++) {
-        console.log('before pickup Player2 deck', player2Deck)
 
         let topCard = masterSuitCard.takeOneCard();
         masterSuitCard.putOneCard(topCard, player2Deck);
-        console.log('after pickup Player2 deck', player2Deck)
 
         player2Elem.insertAdjacentHTML('beforeend',
             `<img src="./assets/${topCard.level}${topCard.suit}.png"
@@ -230,7 +227,6 @@ const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuit
         getMoreCardsButtonElement.innerHTML = 'Cards finished';
         getMoreCardsButtonElement.disabled = true;
     }
-    //getMoreCardsButtonElement.disabled = true;
 }
 
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards, masterSuitCard) => {
