@@ -236,22 +236,7 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
-            let pl1CardImages = player1Elem.querySelectorAll('img');
-            console.log('new updated .')
-
-            if (pl1CardImgElem === pl1CardImages.item(i)) {
-                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i, player1Deck);
-            } else if (pl1CardImgElem === pl1CardImages.item(i - 1)) {
-                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i - 1, player1Deck);
-            } else if (pl1CardImgElem === pl1CardImages.item(i - 2)) {
-                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i - 2, player1Deck);
-            } else if (pl1CardImgElem === pl1CardImages.item(i - 3)) {
-                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i - 3, player1Deck);
-            } else if (pl1CardImgElem === pl1CardImages.item(i - 4)) {
-                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i - 4, player1Deck);
-            } else if (pl1CardImgElem === pl1CardImages.item(i - 5)) {
-                player1Deck = actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, i - 5, player1Deck);
-            }
+            player1Attack(pl1CardImgElem, playField, player2Deck, i, player1Deck);
         });
         dealPlayer2CardImages(player2Deck, i);
     }
@@ -298,5 +283,10 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
         console.log('=======================');
 
         beatenButtonElem.disabled = true;
+        getMoreCardsButtonElement.disabled = false;
     });
+
+    getMoreCardsButtonElement.addEventListener('click', () => {
+        dealMoreCardsForPlayers(player1Deck, playField, player2Deck,masterSuitCard);
+    })
 }
