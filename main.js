@@ -136,7 +136,7 @@ const player2TakesUnbeatenCardsImagesFromPlayField = (playField, playFieldImages
     }
 }
 
-const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField) => {
+const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField, masterSuit) => {
     setTimeout(() => {
         for (let j = 0; j < player2Deck.length; j++) {
             let player2IsBigger = dummyPlay(player1AttackCard.level, player1AttackCard.suit,
@@ -165,7 +165,7 @@ const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField) => {
     }, 2000);
 }
 
-const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index, player1Deck) => {
+const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index, player1Deck, masterSuit) => {
     let player1AttackCard = getPlayer1AttackCard(player1Deck, index);
     if (canPutCardOnPlayField(playField, player1AttackCard)) {
         getUpdatedPlayer1Deck(player1Deck, index);
@@ -173,26 +173,26 @@ const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index
         addCardToPlayField(playField, player1AttackCard);
         addCardImageToPlayField(player1AttackCard, playField);
         disableBitoButton(true);
-        defenceStepOfPlayer2(player1AttackCard, player2Deck, playField);
+        defenceStepOfPlayer2(player1AttackCard, player2Deck, playField, masterSuit);
     } else {
         pl1CardImgElem.style.border = '2px solid red';
     }
 }
 
-const player1Attack = (pl1CardImgElem, playField, player2Deck, index, player1Deck) => {
+const player1Attack = (pl1CardImgElem, playField, player2Deck, index, player1Deck, masterSuit) => {
     let pl1CardImages = getPlayer1CardImages();
     //console.log(pl1CardImgElem === pl1CardImages.item(i));
 
     if (pl1CardImgElem === pl1CardImages.item(index)) {
-        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index, player1Deck);
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index, player1Deck, masterSuit);
     } else if (pl1CardImgElem === pl1CardImages.item(index - 1)) {
-        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 1, player1Deck);
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 1, player1Deck, masterSuit);
     } else if (pl1CardImgElem === pl1CardImages.item(index - 2)) {
-        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 2, player1Deck);
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 2, player1Deck, masterSuit);
     } else if (pl1CardImgElem === pl1CardImages.item(index - 3)) {
-        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 3, player1Deck);
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 3, player1Deck, masterSuit);
     } else if (pl1CardImgElem === pl1CardImages.item(index - 4)) {
-        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 4, player1Deck);
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 4, player1Deck, masterSuit);
     } else if (pl1CardImgElem === pl1CardImages.item(index - 5)) {
         actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 5, player1Deck);
     }
@@ -232,11 +232,10 @@ const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuit
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards, masterSuitCard) => {
     for (let i = 0; i < player1Deck.length; i++) {
         dealPlayer1CardImages(player1Deck, i);
-        console.log('new updated.')
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
-            player1Attack(pl1CardImgElem, playField, player2Deck, i, player1Deck);
+            player1Attack(pl1CardImgElem, playField, player2Deck, i, player1Deck, masterSuit);
         });
         dealPlayer2CardImages(player2Deck, i);
     }
