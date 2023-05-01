@@ -194,11 +194,16 @@ const player1Attack = (pl1CardImgElem, playField, player2Deck, index, player1Dec
     } else if (pl1CardImgElem === pl1CardImages.item(index - 4)) {
         actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 4, player1Deck, masterSuit);
     } else if (pl1CardImgElem === pl1CardImages.item(index - 5)) {
-        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 5, player1Deck);
+        actionOfPlayer1andPlayer2(pl1CardImgElem, playField, player2Deck, index - 5, player1Deck, masterSuit);
     }
 }
 
-const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuitCard) => {
+const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuitCard, masterSuit) => {
+    if (masterSuitCard.deck.length === 0) {
+        getMoreCardsButtonElement.innerHTML = 'Cards finished';
+        getMoreCardsButtonElement.disabled = true;
+        return;
+    }
     for (let i = player1Deck.length; i < 6; i++) {
 
         let topCard = masterSuitCard.takeOneCard();
@@ -211,7 +216,7 @@ const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuit
         let pl1NewCardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1NewCardImgElem.addEventListener('click', () => {
-            player1Attack(pl1NewCardImgElem, playField, player2Deck, i, player1Deck);
+            player1Attack(pl1NewCardImgElem, playField, player2Deck, i, player1Deck, masterSuit);
         })
     }
     for (let i = player2Deck.length; i < 6; i++) {
@@ -223,13 +228,10 @@ const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuit
             `<img src="./assets/${topCard.level}${topCard.suit}.png"
                     alt="${topCard.level}${topCard.suit}"/>`);
     }
-    if (masterSuitCard.deck.length === 0) {
-        getMoreCardsButtonElement.innerHTML = 'Cards finished';
-        getMoreCardsButtonElement.disabled = true;
-    }
 }
 
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards, masterSuitCard) => {
+
     for (let i = 0; i < player1Deck.length; i++) {
         dealPlayer1CardImages(player1Deck, i);
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
@@ -286,6 +288,6 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
     });
 
     getMoreCardsButtonElement.addEventListener('click', () => {
-        dealMoreCardsForPlayers(player1Deck, playField, player2Deck,masterSuitCard);
+        dealMoreCardsForPlayers(player1Deck, playField, player2Deck, masterSuitCard, masterSuit);
     })
 }
