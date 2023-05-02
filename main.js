@@ -3,18 +3,6 @@ import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
 
-const dealPlayer1CardImages = (player1Deck, number) => {
-    player1Elem.insertAdjacentHTML('beforeend',
-        `<img src="./assets/${player1Deck[number].level}${player1Deck[number].suit}.png" 
-                    alt="${player1Deck[number].level}${player1Deck[number].suit}"/>`);
-    player1Elem.style.boxShadow = 'antiquewhite';
-}
-const dealPlayer2CardImages = (player2Deck, number) => {
-    player2Elem.insertAdjacentHTML('beforeend',
-        `<img src="./assets/${player2Deck[number].level}${player2Deck[number].suit}.png" 
-                    alt="${player2Deck[number].level}${player2Deck[number].suit}"/>`);
-}
-
 const getPlayer1CardImages = () => {
     return player1Elem.querySelectorAll('img');
 }
@@ -37,6 +25,11 @@ const getUpdatedPlayer1Deck = (player1Deck, index) => {
 
 const removeCardImage = (cardImgElem) => {
     cardImgElem.remove();
+}
+const addCardImageToElement = (element, cardImage) => {
+    element.insertAdjacentHTML('beforeend',
+        `<img src="./assets/${cardImage.level}${cardImage.suit}.png" 
+                    alt="${cardImage.level}${cardImage.suit}"/>`);
 }
 
 const addCardToPlayField = (playField, attackOrDefenceCard) => {
@@ -95,44 +88,9 @@ const player2TakesUnbeatenCardsFromPlayField = (playField, player2Deck) => {
     console.log('========');
 }
 const player2TakesUnbeatenCardsImagesFromPlayField = (playField, playFieldImagesElements) => {
-    if (playField.length === 1) {
-        removeCardImage(playFieldImagesElements[0]);
-
-        player2Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${playField[0].level}${playField[0].suit}.png" 
-                            alt="${playField[0].level}${playField[0].suit}"/>`);
-
-    } else if (playField.length === 3) {
-        removeCardImage(playFieldImagesElements[0]);
-        removeCardImage(playFieldImagesElements[1]);
-        removeCardImage(playFieldImagesElements[2]);
-
-        player2Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${playField[0].level}${playField[0].suit}.png" 
-                            alt="${playField[0].level}${playField[0].suit}"/>, 
-                            <img src="./assets/${playField[1].level}${playField[1].suit}.png" 
-                            alt="${playField[1].level}${playField[1].suit}"/>, 
-                            <img src="./assets/${playField[2].level}${playField[2].suit}.png" 
-                            alt="${playField[2].level}${playField[2].suit}"/>`);
-
-    } else if (playField.length === 5) {
-        removeCardImage(playFieldImagesElements[0]);
-        removeCardImage(playFieldImagesElements[1]);
-        removeCardImage(playFieldImagesElements[2]);
-        removeCardImage(playFieldImagesElements[3]);
-        removeCardImage(playFieldImagesElements[4]);
-
-        player2Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${playField[0].level}${playField[0].suit}.png" 
-                            alt="${playField[0].level}${playField[0].suit}"/>, 
-                            <img src="./assets/${playField[1].level}${playField[1].suit}.png" 
-                            alt="${playField[1].level}${playField[1].suit}"/>, 
-                            <img src="./assets/${playField[2].level}${playField[2].suit}.png" 
-                            alt="${playField[2].level}${playField[2].suit}"/>, 
-                            <img src="./assets/${playField[3].level}${playField[3].suit}.png" 
-                            alt="${playField[3].level}${playField[3].suit}"/>, 
-                            <img src="./assets/${playField[4].level}${playField[4].suit}.png" 
-                            alt="${playField[4].level}${playField[4].suit}"/>`);
+    for (let i = 0; i < playField.length; i++) {
+        removeCardImage(playFieldImagesElements[i]);
+        addCardImageToElement(player2Elem, playField[i]);
     }
 }
 
@@ -233,13 +191,13 @@ const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuit
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards, masterSuitCard) => {
 
     for (let i = 0; i < player1Deck.length; i++) {
-        dealPlayer1CardImages(player1Deck, i);
+        addCardImageToElement(player1Elem, player1Deck[i]);
         let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
 
         pl1CardImgElem.addEventListener('click', () => {
             player1Attack(pl1CardImgElem, playField, player2Deck, i, player1Deck, masterSuit);
         });
-        dealPlayer2CardImages(player2Deck, i);
+        addCardImageToElement(player2Elem, player2Deck[i]);
     }
 
     mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuit
@@ -252,30 +210,9 @@ export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, f
             finishedCardsElem.insertAdjacentHTML('beforeend',
                 `<img src="assets/CardBack.png" alt="CardBack"/>`);
         }
-
-        if (playField.length === 2) {
-            finishedCards.push(playField[0], playField[1]);
-
-            fieldCardsImgElements[0].remove();
-            fieldCardsImgElements[1].remove();
-
-        } else if (playField.length === 4) {
-            finishedCards.push(playField[0], playField[1], playField[2], playField[3]);
-
-            fieldCardsImgElements[0].remove();
-            fieldCardsImgElements[1].remove();
-            fieldCardsImgElements[2].remove();
-            fieldCardsImgElements[3].remove();
-
-        } else if (playField.length === 6) {
-            finishedCards.push(playField[0], playField[1], playField[2], playField[3], playField[4], playField[5]);
-
-            fieldCardsImgElements[0].remove();
-            fieldCardsImgElements[1].remove();
-            fieldCardsImgElements[2].remove();
-            fieldCardsImgElements[3].remove();
-            fieldCardsImgElements[4].remove();
-            fieldCardsImgElements[5].remove();
+        for (let i = 0; i < playField.length; i++) {
+            finishedCards.push(playField[i]);
+            fieldCardsImgElements[i].remove();
         }
         playField.splice(0);
         console.log('=======================');
