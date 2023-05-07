@@ -11,6 +11,62 @@
             height: 550px;
             background-color: limegreen;
         }
+        .pl1_beaten {
+            display: flex;
+            background-color: limegreen;
+        }
+        .player1_Outer {
+            padding: 4px 1px;
+            width: 310px;
+            margin-bottom: 3px;
+            margin-left: 35px;
+        }
+        .player1BackgroundFlashing {
+            background-color: blueviolet;
+            padding: 4px 1px;
+            width: 310px;
+            margin-bottom: 3px;
+            margin-left: 35px;
+            animation: ok 0.5s ease running 3;
+        }
+        @keyframes ok {
+            0% {
+                background-color: blueviolet;
+            }
+            50% {
+                background-color: lavender;
+            }
+            100% {
+                background-color: blueviolet;
+            }
+        }
+        .beaten {
+            margin-left: auto;
+            margin-top: 10px;
+        }
+        .yourTurn {
+            font-size: 25px;
+            margin-top: 20px;
+            margin-left: -85px;
+            font-weight: 400;
+        }
+        .getMoreCards {
+            margin-left: auto;
+            margin-top: 10px;
+            margin-right: 50px;
+        }
+        .player1 {
+            margin-left: 53px;
+            height: 115px;
+            width: 300px;
+            margin-bottom: 3px;
+            margin-top: 3px;
+        }
+        .player2 {
+            height: 120px;
+            margin-top: 10px;
+            margin-left: 90px;
+        }
         .player1 img {
             margin-left: -50px;
             width: 90px;
@@ -23,16 +79,12 @@
             height: 115px;
             border: 1px solid black;
         }
-        .player1 {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            margin-left: 90px;
-            height: 115px;
-        }
-        .player2 {
-            height: 120px;
-            margin-top: 10px;
-            margin-left: 90px;
+        .middleField {
+            display: flex;
+            width: 800px;
+            height: 150px;
+            border: 2px solid black;
+            background-color: azure;
         }
         .middleField .mainDeck {
             width: 90px;
@@ -51,6 +103,12 @@
             height: 115px;
             margin-left: 90px;
         }
+        .middleField .playField img {
+            width: 90px;
+            height: 115px;
+            border: 1px solid black;
+            margin-left: -50px;
+        }
         .middleField .finishedCards {
             width: 90px;
             height: 115px;
@@ -62,43 +120,23 @@
             width: 90px;
             height: 115px;
         }
-        .middleField {
-            display: flex;
-            width: 800px;
-            height: 150px;
-            border: 2px solid black;
-            background-color: azure;
-        }
-        .middleField .playField img {
-            width: 90px;
-            height: 115px;
-            border: 1px solid black;
-            margin-left: -50px;
-        }
-        .pl1_beaten {
-            display: flex;
-            background-color: limegreen;
-        }
-        .beaten {
-            margin-left: auto;
-            margin-top: 10px;
-        }
-        .getMoreCards {
-            margin-left: auto;
-            margin-top: 10px;
-            margin-right: 50px;
     </style>
 </head>
 <body>
 <div class="wrapper">
     <div class="container">
         <div class="pl1_beaten">
-            <div class="player1"></div>
-            <div class="beaten"><button type="button" disabled>Beaten</button></div>
-            <div class="getMoreCards"><button type="button" disabled>Get more cards</button></div>
+            <div class="player1_Outer">
+                <div class="player1"></div>
+            </div>
+            <div class="beaten">
+                <button type="button" disabled>Бито</button>
+                <div class="yourTurn1"></div>
+            </div>
+            <div class="getMoreCards"><button type="button" disabled>Добрать карты</button></div>
         </div>
         <div class="middleField">
-            <div class="mainDeck"><strong>Козырь</strong></div>
+            <div class="mainDeck"></div>
             <div class="playField"></div>
             <div class="finishedCards"></div>
         </div>

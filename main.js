@@ -1,7 +1,7 @@
 'use strict';
 import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
-    beatenButtonElem, getMoreCardsButtonElement } from "./DOM_elements";
+    beatenButtonElem, getMoreCardsButtonElement, pl1OuterElem, pl1TurnElem } from "./DOM_elements";
 
 const getPlayer1CardImages = () => {
     return player1Elem.querySelectorAll('img');
