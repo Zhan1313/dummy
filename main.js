@@ -24,6 +24,14 @@ const canPutCardOnPlayField = (playField, attackCard) => {
     return playField.length === 0 || checkPlayFieldCardsLevels(playField, attackCard);
 }
 
+const addCardToBlock = (block, card) => {
+    block.push(card);
+}
+const deleteAllCardsFromBlock = (block) => {
+    block.splice(0);
+}
+
+
 const removeCardImage = (cardImgElem) => {
     cardImgElem.remove();
 }
@@ -33,11 +41,6 @@ const addCardImageToElement = (element, cardImage) => {
                     alt="${cardImage.level}${cardImage.suit}"/>`);
 }
 
-const addCardToPlayField = (playField, attackOrDefenceCard) => {
-    playField.push(attackOrDefenceCard);
-    console.log('this is cards on playField', playField);
-    console.log('playField =================');
-}
 const addCardImageToPlayField = (cardImage, playField) => {
     if (playField.length === 3) {
         playFieldElem.insertAdjacentHTML('beforeend',
@@ -63,16 +66,6 @@ const addCardImageToPlayField = (cardImage, playField) => {
 }
 const disableBitoButton = (trueOrFalse) => {
     beatenButtonElem.disabled = trueOrFalse;
-}
-
-const getPlayer2DefenceCard = (player2Deck, index) => {
-    let player2DefenceCard = player2Deck.filter(card => card === player2Deck[index])[0];
-    console.log('this is defendCard of player2', player2DefenceCard);
-    return player2DefenceCard;
-}
-const getUpdatedPlayer2Deck = (player2Deck, index) => {
-    player2Deck.splice(index, 1);
-    console.log('this is updated Player2Deck', player2Deck);
 }
 
 const player2TakesUnbeatenCardsFromPlayField = (playField, player2Deck) => {
