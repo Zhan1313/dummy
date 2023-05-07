@@ -3,24 +3,25 @@ import { dummyPlay } from "./comparison";
 import { player1Elem, player2Elem, playFieldElem, mainDeckElem, finishedCardsElem,
     beatenButtonElem, getMoreCardsButtonElement, pl1OuterElem, pl1TurnElem } from "./DOM_elements";
 
-const getPlayer1CardImages = () => {
-    return player1Elem.querySelectorAll('img');
+const getCardImagesOfBlock = (blockElem) => {
+    return blockElem.querySelectorAll('img');
 }
 
-const getPlayer1AttackCard = (player1Deck, index) => {
-    let player1AttackCard = player1Deck.filter(card => card === player1Deck[index])[0];
-    console.log('this is attacking card', player1AttackCard);
-    return player1AttackCard;
+const getAttackingOrDefendingCard = (playerDeck, index) => {
+    let playerAttackingOrDefendingCard = playerDeck.filter(card => card === playerDeck[index])[0];
+    console.log('this is attacking or defending card', playerAttackingOrDefendingCard);
+    return playerAttackingOrDefendingCard;
 }
+
+const getUpdatedDeckOfBlock = (blockDeck, index) => {
+    blockDeck.splice(index, 1);
+}
+
 const checkPlayFieldCardsLevels = (playField, attackCard) => {
     return !!playField.find(playFieldCard => playFieldCard.level === attackCard.level);
 }
 const canPutCardOnPlayField = (playField, attackCard) => {
     return playField.length === 0 || checkPlayFieldCardsLevels(playField, attackCard);
-}
-const getUpdatedPlayer1Deck = (player1Deck, index) => {
-    player1Deck.splice(index, 1);
-    console.log('this is updated Player1Deck', player1Deck);
 }
 
 const removeCardImage = (cardImgElem) => {
