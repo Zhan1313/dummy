@@ -49,26 +49,23 @@ const disableButton = (buttonElem, trueOrFalse) => {
     buttonElem.disabled = trueOrFalse;
 }
 
-
-const player2TakesUnbeatenCardsFromPlayField = (playField, player2Deck) => {
-    if (playField.length === 1) {
-        player2Deck.push(playField[0]);
-    } else if (playField.length === 3) {
-        player2Deck.push(playField[0], playField[1], playField[2]);
-    } else if (playField.length === 5) {
-        player2Deck.push(playField[0], playField[1], playField[2], playField[3], playField[4]);
+const takeAllCardsFromFieldToPlayer = (playField, playerDeck) => {
+    for (let i = 0; i < playField.length; i++) {
+        addCardToBlock(playerDeck, playField[i]);
     }
-    playField.splice(0);
-    console.log('this is updated cards on playField', playField);
+    deleteAllCardsFromBlock(playField);
     console.log('========');
     console.log('========');
 }
-const player2TakesUnbeatenCardsImagesFromPlayField = (playField, playFieldImagesElements) => {
+
+const takeAllCardImagesFromFieldToPlayer = (playField, playerElem) => {
+    let playFieldImagesElements = getCardImagesOfBlock(playFieldElem);
     for (let i = 0; i < playField.length; i++) {
         removeCardImage(playFieldImagesElements[i]);
-        addCardImageToElement(player2Elem, playField[i]);
+        addCardImageToElement(playerElem, playField[i]);
     }
 }
+
 
 const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField, masterSuit) => {
     setTimeout(() => {
