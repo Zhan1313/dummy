@@ -196,34 +196,31 @@ const dealMoreCardsForPlayer = (playerDeck, playerElem, masterSuitCard) => {
 }
 
 const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuitCard, masterSuit) => {
-    if (masterSuitCard.deck.length === 0) {
-        getMoreCardsButtonElement.innerHTML = 'Cards finished';
-        getMoreCardsButtonElement.disabled = true;
-        return;
-    }
-    for (let i = player1Deck.length; i < 6; i++) {
+    getMoreCardsButtonElement.addEventListener('click', () => {
+        pl1OuterElem.className = 'player1_Outer';
+        if (masterSuitCard.deck.length === 0) {
+            getMoreCardsButtonElement.innerHTML = 'Карты закончены';
+            getMoreCardsButtonElement.disabled = true;
+            return;
+        }
+        if (masterSuitCard.deck.length === 1) {
+            getMoreCardsButtonElement.innerHTML = 'Карты закончены';
+            getMoreCardsButtonElement.disabled = true;
+            dealMoreCardsForPlayer(player1Deck, player1Elem, masterSuitCard);
+            playerAttackAndOpponentDefence(player1Deck, player1Elem, playField, player2Deck, masterSuit);
+            return;
+        }
+        dealMoreCardsForPlayer(player1Deck, player1Elem, masterSuitCard);
 
-        let topCard = masterSuitCard.takeOneCard();
-        masterSuitCard.putOneCard(topCard, player1Deck);
+        player2Deck = dealMoreCardsForPlayer(player2Deck, player2Elem, masterSuitCard);
 
-        player1Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${topCard.level}${topCard.suit}.png"
-                    alt="${topCard.level}${topCard.suit}"/>`);
+        playerAttackAndOpponentDefence(player1Deck, player1Elem, playField, player2Deck, masterSuit);
+    })
+}
 
-        let pl1NewCardImgElem = player1Elem.querySelectorAll('img')[i];
-
-        pl1NewCardImgElem.addEventListener('click', () => {
-            player1Attack(pl1NewCardImgElem, playField, player2Deck, i, player1Deck, masterSuit);
-        })
-    }
-    for (let i = player2Deck.length; i < 6; i++) {
-
-        let topCard = masterSuitCard.takeOneCard();
-        masterSuitCard.putOneCard(topCard, player2Deck);
-
-        player2Elem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${topCard.level}${topCard.suit}.png"
-                    alt="${topCard.level}${topCard.suit}"/>`);
+const dealPlayerDeck = (playerDeck, playerElem) => {
+    for (let i = 0; i < playerDeck.length; i++) {
+        addCardImageToElement(playerElem, playerDeck[i]);
     }
 }
 
