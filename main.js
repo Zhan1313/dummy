@@ -184,6 +184,17 @@ const bito = (finishedCards, playField) => {
     })
 }
 
+const dealMoreCardsForPlayer = (playerDeck, playerElem, masterSuitCard) => {
+    for (let i = playerDeck.length; i < 6; i++) {
+        let topCard = masterSuitCard.takeOneCard();
+        masterSuitCard.putOneCard(topCard, playerDeck);
+        addCardImageToElement(playerElem, topCard);
+    }
+    if (playerDeck.length >= 6) {
+        return playerDeck;
+    }
+}
+
 const dealMoreCardsForPlayers = (player1Deck, playField, player2Deck, masterSuitCard, masterSuit) => {
     if (masterSuitCard.deck.length === 0) {
         getMoreCardsButtonElement.innerHTML = 'Cards finished';
