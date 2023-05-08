@@ -66,6 +66,52 @@ const takeAllCardImagesFromFieldToPlayer = (playField, playerElem) => {
     }
 }
 
+const hasDefendingCards = (defendingPlayerDeck, opponentsAttackCard, masterSuit) => {
+    let defendingCards = [];
+    for (let j = 0; j < defendingPlayerDeck.length; j++) {
+        let defenceSuccess = dummyPlay(opponentsAttackCard.level, opponentsAttackCard.suit,
+            defendingPlayerDeck[j].level, defendingPlayerDeck[j].suit, masterSuit.suit);
+        console.log('defence successful?', defenceSuccess);
+        console.log('====', j);
+        if (defenceSuccess) {
+            defendingCards.push(defendingPlayerDeck[j]);
+            console.log('this is defending cards', defendingCards);
+        }
+    }
+    return defendingCards;
+}
+const getSmallestDefenceCard = (defendingCards, masterSuit) => {
+    let smallestDefenceCard = defendingCards.reduce((previousCard, currentCard) => {
+        if (dummyPlay(previousCard.level, previousCard.suit, currentCard.level, currentCard.suit, masterSuit.suit)) {
+            return previousCard;
+        }
+        return currentCard;
+    }, defendingCards[0]);
+    console.log('smallest defence card', smallestDefenceCard);
+    return smallestDefenceCard;
+}
+
+const successfulDefence = (defenceCard, defendingPlayerDeck, playerElem, playField) => {
+    let playerDefenceCard = defenceCard;
+    let index = defendingPlayerDeck.indexOf(playerDefenceCard)
+    getUpdatedDeckOfBlock(defendingPlayerDeck, index);
+    let playerCardImgElems = getCardImagesOfBlock(playerElem);
+    removeCardImage(playerCardImgElems[index]);
+    addCardToBlock(playField, playerDefenceCard);
+    addCardImageToElement(playFieldElem, playerDefenceCard);
+    disableButton(beatenButtonElem, false);
+}
+const unsuccessfulDefence = (playField, playerElem, defendingPlayerDeck) => {
+    takeAllCardImagesFromFieldToPlayer(playField, playerElem)
+    takeAllCardsFromFieldToPlayer(playField, defendingPlayerDeck);
+
+    disableButton(beatenButtonElem, true);
+    disableButton(getMoreCardsButtonElement, false);
+    pl1OuterElem.className = 'player1BackgroundFlashing';
+    pl1TurnElem.innerHTML = 'Ваш ход!!!'
+    pl1TurnElem.className = 'yourTurn';
+}
+
 
 const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField, masterSuit) => {
     setTimeout(() => {
