@@ -224,43 +224,29 @@ const dealPlayerDeck = (playerDeck, playerElem) => {
     }
 }
 
+const playerAttackAndOpponentDefence = (playerDeck, playerElem, playField, opponentPlayerDeck, masterSuit) => {
+    let playerCardImgElems = getCardImagesOfBlock(playerElem);
+
+    for (let i = 0; i < playerDeck.length; i++) {
+
+        playerCardImgElems[i].addEventListener('click', () => {
+            pl1TurnElem.innerHTML = '';
+            pl1TurnElem.className = 'yourTurn1';
+            attacks(playerCardImgElems[i], playerElem, playField, i, playerDeck, opponentPlayerDeck, masterSuit);
+        });
+    }
+}
+
 export const dealRealCards = (player1Deck, player2Deck, masterSuit, playField, finishedCards, masterSuitCard) => {
 
-    for (let i = 0; i < player1Deck.length; i++) {
-        addCardImageToElement(player1Elem, player1Deck[i]);
-        let pl1CardImgElem = player1Elem.querySelectorAll('img')[i];
+    dealPlayerDeck(player1Deck, player1Elem);
+    dealPlayerDeck(player2Deck, player2Elem);
 
-        pl1CardImgElem.addEventListener('click', () => {
-            player1Attack(pl1CardImgElem, playField, player2Deck, i, player1Deck, masterSuit);
-        });
-        addCardImageToElement(player2Elem, player2Deck[i]);
-    }
+    addCardImageToElement(mainDeckElem, masterSuit);
 
-    mainDeckElem.insertAdjacentHTML('afterbegin',`<img src="./assets/${masterSuit
-        .level}${masterSuit.suit}.png" alt="${masterSuit.level}${masterSuit.suit}"/>`);
+    playerAttackAndOpponentDefence(player1Deck, player1Elem, playField, player2Deck, masterSuit);
 
-    beatenButtonElem.addEventListener('click', () => {
-        let fieldCardsImgElements = playFieldElem.querySelectorAll('img');
+    bito(finishedCards, playField);
 
-        if (finishedCards.length === 0) {
-            finishedCardsElem.insertAdjacentHTML('beforeend',
-                `<img src="assets/CardBack.png" alt="CardBack"/>`);
-        }
-        for (let i = 0; i < playField.length; i++) {
-            finishedCards.push(playField[i]);
-            fieldCardsImgElements[i].remove();
-        }
-        playField.splice(0);
-        console.log('=======================');
-        console.log('this is playField', playField);
-        console.log('this is beaten', finishedCards);
-        console.log('=======================');
-
-        beatenButtonElem.disabled = true;
-        getMoreCardsButtonElement.disabled = false;
-    });
-
-    getMoreCardsButtonElement.addEventListener('click', () => {
-        dealMoreCardsForPlayers(player1Deck, playField, player2Deck, masterSuitCard, masterSuit);
-    })
+    dealMoreCardsForPlayers(player1Deck, playField, player2Deck, masterSuitCard, masterSuit);
 }
