@@ -31,7 +31,6 @@ const deleteAllCardsFromBlock = (block) => {
     block.splice(0);
 }
 
-
 const removeCardImage = (cardImgElem) => {
     cardImgElem.remove();
 }
@@ -41,32 +40,15 @@ const addCardImageToElement = (element, cardImage) => {
                     alt="${cardImage.level}${cardImage.suit}"/>`);
 }
 
-const addCardImageToPlayField = (cardImage, playField) => {
-    if (playField.length === 3) {
-        playFieldElem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${cardImage.level}${cardImage.suit}.png" 
-                    alt="${cardImage.level}${cardImage.suit}"/>`);
-
-        let attackCardImgElem = playFieldElem.querySelectorAll('img')[2];
-
-        attackCardImgElem.style.marginLeft = '10px';
-    } else if (playField.length === 5) {
-        playFieldElem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${cardImage.level}${cardImage.suit}.png" 
-                    alt="${cardImage.level}${cardImage.suit}"/>`);
-
-        let attackCardImgElem = playFieldElem.querySelectorAll('img')[4];
-
-        attackCardImgElem.style.marginLeft = '10px';
-    } else {
-        playFieldElem.insertAdjacentHTML('beforeend',
-            `<img src="./assets/${cardImage.level}${cardImage.suit}.png" 
-                    alt="${cardImage.level}${cardImage.suit}"/>`);
-    }
+const putCardBackImageToBeatenDeck = () => {
+    finishedCardsElem.insertAdjacentHTML('beforeend',
+        `<img src="assets/CardBack.png" alt="CardBack"/>`)
 }
-const disableBitoButton = (trueOrFalse) => {
-    beatenButtonElem.disabled = trueOrFalse;
+
+const disableButton = (buttonElem, trueOrFalse) => {
+    buttonElem.disabled = trueOrFalse;
 }
+
 
 const player2TakesUnbeatenCardsFromPlayField = (playField, player2Deck) => {
     if (playField.length === 1) {
