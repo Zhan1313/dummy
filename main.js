@@ -113,33 +113,19 @@ const unsuccessfulDefence = (playField, playerElem, defendingPlayerDeck) => {
 }
 
 
-const defenceStepOfPlayer2 = (player1AttackCard, player2Deck, playField, masterSuit) => {
+const playerDefence = (playerElem, defendingPlayerDeck, opponentsAttackCard, playField, masterSuit) => {
     setTimeout(() => {
-        for (let j = 0; j < player2Deck.length; j++) {
-            let player2IsBigger = dummyPlay(player1AttackCard.level, player1AttackCard.suit,
-                player2Deck[j].level, player2Deck[j].suit, masterSuit.suit);
-            console.log('player2 wins?', player2IsBigger);
-            console.log('====', j);
+        let defendingCards = hasDefendingCards(defendingPlayerDeck, opponentsAttackCard, masterSuit);
 
-            if (player2IsBigger === true) {
-                let player2DefenceCard = getPlayer2DefenceCard(player2Deck, j);
-                getUpdatedPlayer2Deck(player2Deck, j);
-                let pl2CardImgElem = player2Elem.querySelectorAll('img')[j];
-                removeCardImage(pl2CardImgElem);
-                addCardToPlayField(playField, player2DefenceCard);
-                addCardImageToPlayField(player2DefenceCard, playField);
-                disableBitoButton(false);
-                return;
-            }
+        if (defendingCards.length === 1) {
+            successfulDefence(defendingCards[0], defendingPlayerDeck, playerElem, playField);
+        } else if (defendingCards.length > 1) {
+            let smallestDefenceCard = getSmallestDefenceCard(defendingCards, masterSuit);
+            successfulDefence(smallestDefenceCard, defendingPlayerDeck, playerElem, playField);
+        } else {
+            unsuccessfulDefence(playField, player2Elem, defendingPlayerDeck);
         }
-        let playFieldImagesElements = playFieldElem.querySelectorAll('img');
-        player2TakesUnbeatenCardsImagesFromPlayField(playField, playFieldImagesElements);
-
-        player2TakesUnbeatenCardsFromPlayField(playField, player2Deck);
-
-        disableBitoButton(true);
-        getMoreCardsButtonElement.disabled = false;
-    }, 2000);
+    }, 500);
 }
 
 const actionOfPlayer1andPlayer2 = (pl1CardImgElem, playField, player2Deck, index, player1Deck, masterSuit) => {
